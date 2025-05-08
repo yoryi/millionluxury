@@ -5,11 +5,12 @@ import { View, StyleSheet, Text, Pressable } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { GradientWrapper, SheetModal } from "../components";
+import { GradientWrapper, InputRN, SheetModal } from "../components";
 import SwitchWithFilters from "../features/switchWithFilters";
 
 const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [inputSearch, setInputSearch] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -77,7 +78,15 @@ const HomeScreen = () => {
           backgroundStyle={{ backgroundColor: Colors.Background }}
           modalContainerStyle={{ backgroundColor: Colors.Background }}
         >
-          <Text >Contenido</Text>
+          <InputRN
+            value={inputSearch}
+            iconLeft={'magnify'}
+            placeholder={"Search"}
+            onChangeText={setInputSearch}
+            onClear={() => setInputSearch('')}
+            style={{ color: Colors.Secondary }}
+            containerStyle={{ backgroundColor: Colors.Background50 }}
+          />
         </SheetModal>
         : null
     )
