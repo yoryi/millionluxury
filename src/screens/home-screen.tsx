@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Colors } from "../config";
-import { GradientWrapper } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
-import NativeSwitch from "../components/nativeSwitch";
+
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { GradientWrapper, SheetModal } from "../components";
+import SwitchWithFilters from "../features/switchWithFilters";
 
 const HomeScreen = () => {
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const contentStyle = useAnimatedStyle(() => {
     return {
@@ -19,6 +23,11 @@ const HomeScreen = () => {
   const handlePress = () => {
     setIsExpanded(prev => !prev);
   };
+
+  const toggleModal = useCallback(() => {
+    setIsFilterOpen(!isFilterOpen)
+    bottomSheetModalRef.current?.collapse()
+  }, []);
 
   const CardTotal = () => {
     return (
@@ -53,19 +62,38 @@ const HomeScreen = () => {
   const ListCoins = () => {
     return (
       <View style={styles.listCoins}>
-        <NativeSwitch/>
+        <SwitchWithFilters onOpenFilters={toggleModal} />
       </View>
     );
   };
 
+  const renderModals = () => {
+    return (
+      isFilterOpen ?
+        <SheetModal
+          snapPoints={["80%"]}
+          bottomSheetModalRef={bottomSheetModalRef}
+          onClose={() => bottomSheetModalRef.current?.close()}
+          backgroundStyle={{ backgroundColor: Colors.Background }}
+          modalContainerStyle={{ backgroundColor: Colors.Background }}
+        >
+          <Text >Contenido</Text>
+        </SheetModal>
+        : null
+    )
+  }
+
   return (
-    <GradientWrapper>
-      <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-        {headerHome()}
-        {CardTotal()}
-        {ListCoins()}
-      </View>
-    </GradientWrapper>
+    <View style={{ flex: 1 }}>
+      <GradientWrapper>
+        <View style={{ paddingLeft: 30, paddingRight: 30 }}>
+          {headerHome()}
+          {CardTotal()}
+          {ListCoins()}
+        </View>
+      </GradientWrapper>
+      {renderModals()}
+    </View>
   );
 };
 

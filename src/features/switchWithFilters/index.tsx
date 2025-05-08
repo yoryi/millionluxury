@@ -4,28 +4,41 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../config';
 
 type StateType = 'moneda' | 'exchange';
-const NativeSwitchComponent = () => {
+type NativeSwitchComponentProps = {
+  onSelect?: (selected: StateType) => void;
+  onOpenFilters?: () => void;
+};
+
+const SwitchWithFilters = ({
+  onSelect,
+  onOpenFilters,
+}: NativeSwitchComponentProps) => {
   const [currentSelection, setCurrentSelection] = useState<StateType>('moneda');
   const monedaStyle = currentSelection === 'moneda' ? styles.active : styles.inactive;
   const exchangeStyle = currentSelection === 'exchange' ? styles.active : styles.inactive;
 
+  const handleSelect = (selection: StateType) => {
+    setCurrentSelection(selection);
+    if (onSelect) {
+      onSelect(selection);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity 
-        style={[styles.button, monedaStyle]} 
-        onPress={() => setCurrentSelection('moneda')}>
+      <TouchableOpacity
+        style={[styles.button, monedaStyle]}
+        onPress={() => handleSelect('moneda')}>
         <MaterialCommunityIcons name="currency-usd" size={20} color="#fff" />
         <Text style={styles.text}>Moneda</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity 
-        style={[styles.button, exchangeStyle]} 
-        onPress={() => setCurrentSelection('exchange')}>
+      <TouchableOpacity
+        style={[styles.button, exchangeStyle]}
+        onPress={() => handleSelect('exchange')}>
         <MaterialCommunityIcons name="swap-horizontal" size={20} color="#fff" />
         <Text style={styles.text}>Exchange</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.filterButton}>
+      <TouchableOpacity style={styles.filterButton} onPress={onOpenFilters}>
         <MaterialCommunityIcons name="filter" size={24} color="#4CAF50" />
       </TouchableOpacity>
     </View>
@@ -60,7 +73,7 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     padding: 8,
-  }
+  },
 });
 
-export default NativeSwitchComponent;
+export default SwitchWithFilters;
