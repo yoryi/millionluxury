@@ -1,17 +1,13 @@
-import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import React from "react";
 import { Colors } from "../config";
+import { View, StyleSheet } from "react-native";
+import { GradientWrapper } from "../components";
 
-class CoinsScreen extends Component {
-  constructor(props: {}) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return <View style={styles.container} />;
-  }
-}
+const CoinScreen = () => {
+  return <GradientWrapper>
+    <View></View>
+  </GradientWrapper>
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -20,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoinsScreen;
+export default CoinScreen;

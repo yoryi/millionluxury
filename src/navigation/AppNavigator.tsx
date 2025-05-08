@@ -1,6 +1,6 @@
 import React from 'react';
 import { Colors } from '../config';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { CoinsScreen, ConfigScreen } from '../screens';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -8,16 +8,17 @@ class AppNavigator extends React.Component {
   getScreenOptions() {
     return {
       tabBarActiveTintColor: Colors.Primary,
-      tabBarInactiveTintColor: Colors.Background50,
+      tabBarInactiveTintColor: Colors.Secondary,
       tabBarStyle: {
         backgroundColor: Colors.Background,
         borderTopWidth: 0,
       },
       tabBarLabelStyle: {
-        fontSize: 14,
+        fontSize: 12,
+        marginTop: 5,
       },
       tabBarIconStyle: {
-        marginTop: 5,
+        marginTop: 1,
       },
       tabBarItemStyle: {
         borderBottomWidth: 0,
@@ -29,21 +30,21 @@ class AppNavigator extends React.Component {
     return (
       <Tab.Navigator screenOptions={this.getScreenOptions()}>
         <Tab.Screen
-          name="Coins"
+          name="Home"
           component={CoinsScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" size={size} color={color} />
+              <MaterialCommunityIcons name="currency-usd" size={size} color={color} />
             ),
             headerShown: false,
           }}
         />
         <Tab.Screen
-          name="Config"
+          name="Profile"
           component={ConfigScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart" size={size} color={color} />
+              <MaterialCommunityIcons name="face-woman-profile" size={size} color={color} />
             ),
             headerShown: false,
           }}
