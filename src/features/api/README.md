@@ -32,7 +32,3 @@ const postData = async () => {
   console.log(response);
 };
 ```
-
-## Manejo de Errores
-
-Ambos métodos manejan errores automáticamente en consola. Puedes personalizarlos según tus necesidades.
