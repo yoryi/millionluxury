@@ -4,6 +4,7 @@ import { GradientWrapper } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
+import NativeSwitch from "../components/nativeSwitch";
 
 const HomeScreen = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -24,7 +25,7 @@ const HomeScreen = () => {
       <LinearGradient
         colors={[Colors.Primary, Colors.Background]}
         style={styles.gradient}
-        start={{ x: 2, y: -2 }}
+        start={{ x: 1, y: -2 }}
         end={{ x: -1, y: 0 }}
       >
         <Pressable onPress={handlePress}>
@@ -52,7 +53,7 @@ const HomeScreen = () => {
   const ListCoins = () => {
     return (
       <View style={styles.listCoins}>
-        <Text style={styles.listTitle}>Lista de Monedas</Text>
+        <NativeSwitch/>
       </View>
     );
   };
@@ -123,6 +124,8 @@ const styles = StyleSheet.create({
   },
   listCoins: {
     marginTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'flex-start'
   },
   listTitle: {

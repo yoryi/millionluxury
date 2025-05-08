@@ -52,7 +52,7 @@ class AppNavigator extends React.Component {
             component={FavoriteScreen}
             options={{
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="face-woman-profile" size={size} color={color} />
+                <MaterialCommunityIcons name="heart" size={size} color={color} />
               ),
               headerShown: false,
             }}

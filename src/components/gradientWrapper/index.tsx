@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
+import { Colors } from "../../config";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, SafeAreaView } from "react-native";
-import { Colors } from "../../config";
 
 const GradientWrapper = ({ children }: { children: ReactNode }) => {
     return (
