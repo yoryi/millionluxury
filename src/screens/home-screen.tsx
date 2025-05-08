@@ -71,7 +71,7 @@ const HomeScreen = () => {
 
   const list = () => {
     return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {Array.from({ length: 15 }, (_, index) => (
           <View key={index} style={{ marginBottom: 10 }}>
             <CoinsWallet />
@@ -101,6 +101,7 @@ const HomeScreen = () => {
             placeholderTextColor={Colors.TextSecondary}
             containerStyle={{ backgroundColor: Colors.Background50 }}
           />
+          {list()}
         </SheetModal>
         : null
     )
