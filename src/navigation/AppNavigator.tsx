@@ -1,6 +1,6 @@
 import React from "react";
 import { Colors } from "../config";
-import { Platform, StatusBar } from "react-native";
+import { Platform } from "react-native";
 import { CoinsScreen, FavoriteScreen } from "../screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -30,35 +30,28 @@ class AppNavigator extends React.Component {
   render() {
     const Tab = createBottomTabNavigator();
     return (
-      <>
-        <StatusBar
-          translucent
-          backgroundColor="transparent"
-          barStyle="light-content"
+      <Tab.Navigator screenOptions={this.getScreenOptions()}>
+        <Tab.Screen
+          name="Home"
+          component={CoinsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="currency-usd" size={size} color={color} />
+            ),
+            headerShown: false,
+          }}
         />
-        <Tab.Navigator screenOptions={this.getScreenOptions()}>
-          <Tab.Screen
-            name="Home"
-            component={CoinsScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="currency-usd" size={size} color={color} />
-              ),
-              headerShown: false,
-            }}
-          />
-          <Tab.Screen
-            name="Favorite"
-            component={FavoriteScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="heart" size={size} color={color} />
-              ),
-              headerShown: false,
-            }}
-          />
-        </Tab.Navigator>
-      </>
+        <Tab.Screen
+          name="Favorite"
+          component={FavoriteScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="heart" size={size} color={color} />
+            ),
+            headerShown: false,
+          }}
+        />
+      </Tab.Navigator>
     );
   }
 }
