@@ -2,10 +2,9 @@
   "expo": {
     "name": "millionluxury",
     "slug": "millionluxury",
-    "version": "1.0.0",
+    "version": "1",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
-    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
       "image": "./src/assets/splash.png",
@@ -13,15 +12,13 @@
       "backgroundColor": "#131217"
     },
     "ios": {
-      "supportsTablet": true,
       "bundleIdentifier": "millionluxury"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/splash.png",
+        "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#131217"
       },
-      "edgeToEdgeEnabled": true,
       "package": "com.millionluxury"
     }
   }
