@@ -8,22 +8,21 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./src/assets/splash-icon.png",
+      "image": "./src/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#131217"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "millionluxury"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/assets/splash.png",
+        "backgroundColor": "#131217"
       },
-      "edgeToEdgeEnabled": true
-    },
-    "web": {
-      "favicon": "./src/assets/favicon.png"
+      "edgeToEdgeEnabled": true,
+      "package": "com.millionluxury"
     }
   }
 }

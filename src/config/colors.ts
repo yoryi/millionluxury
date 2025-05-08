@@ -2,13 +2,15 @@ class ColorPalette {
     private primary: string;
     private secondary: string;
     private background: string;
+    private background50: string;
     private textPrimary: string;
     private textSecondary: string;
 
     constructor() {
-        this.primary = "#3498db";
-        this.secondary = "#2ecc71";
-        this.background = "#ecf0f1";
+        this.primary = "#3FBF69";
+        this.secondary = "#F9FBFC";
+        this.background = "#131217";
+        this.background50 = "#18181C";
         this.textPrimary = "#2c3e50";
         this.textSecondary = "#7f8c8d";
     }
@@ -23,6 +25,10 @@ class ColorPalette {
 
     get Background(): string {
         return this.background;
+    }
+
+    get Background50(): string {
+        return this.background50;
     }
 
     get TextPrimary(): string {
