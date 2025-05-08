@@ -1,2 +1,2 @@
-export { default as CoinsScreen } from './coins-screen';
-export { default as ConfigScreen } from './config-screen';
+export { default as CoinsScreen } from './home-screen';
+export { default as FavoriteScreen } from './favorite-screen';

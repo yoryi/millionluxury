@@ -3,7 +3,7 @@ import { Colors } from "../config";
 import { View, StyleSheet } from "react-native";
 import { GradientWrapper } from "../components";
 
-const ConfigScreen = () => {
+const FavoriteScreen = () => {
   return <GradientWrapper>
     <View></View>
   </GradientWrapper> 
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConfigScreen;
+export default FavoriteScreen;

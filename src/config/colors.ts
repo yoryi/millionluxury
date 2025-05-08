@@ -12,7 +12,7 @@ class ColorPalette {
         this.background = "#131217";
         this.background50 = "#18181C";
         this.textPrimary = "#2c3e50";
-        this.textSecondary = "#7f8c8d";
+        this.textSecondary = "#6B7471";
     }
 
     get Primary(): string {

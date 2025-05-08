@@ -1,7 +1,7 @@
 import React from "react";
 import { Colors } from "../config";
 import { Platform, StatusBar } from "react-native";
-import { CoinsScreen, ConfigScreen } from "../screens";
+import { CoinsScreen, FavoriteScreen } from "../screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -48,8 +48,8 @@ class AppNavigator extends React.Component {
             }}
           />
           <Tab.Screen
-            name="Profile"
-            component={ConfigScreen}
+            name="Favorite"
+            component={FavoriteScreen}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="face-woman-profile" size={size} color={color} />
