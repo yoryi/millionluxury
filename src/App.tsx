@@ -1,22 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import { StatusBar } from "react-native";
 import AppNavigator from "./navigation/AppNavigator";
+import { useSplashLoader } from "./hooks/useSplashLoader";
 import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-class App extends Component {
-  renderStatusBar() {
-    return <StatusBar barStyle={'light-content'} />;
-  }
-  renderNavigator() {
-    return <AppNavigator />
-  }
-  render() {
-    return (
+export default function App() {
+  const { isReady } = useSplashLoader();
+  if (isReady) return null;
+  
+  return (
+    <SafeAreaProvider>
       <NavigationContainer>
-        {this.renderStatusBar()}
-        {this.renderNavigator()}
+        <StatusBar barStyle={"light-content"} />
+        <AppNavigator />
       </NavigationContainer>
-    );
-  }
+    </SafeAreaProvider>
+  );
 }
-export default App;
