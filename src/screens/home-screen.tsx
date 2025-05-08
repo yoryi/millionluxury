@@ -85,6 +85,7 @@ const HomeScreen = () => {
             onChangeText={setInputSearch}
             onClear={() => setInputSearch('')}
             style={{ color: Colors.Secondary }}
+            placeholderTextColor={Colors.TextSecondary}
             containerStyle={{ backgroundColor: Colors.Background50 }}
           />
         </SheetModal>

@@ -8,6 +8,7 @@ interface Input extends TextInputProps {
   onClear?: () => void;
   inputStyle?: ViewStyle;
   containerStyle?: ViewStyle;
+  placeholderTextColor?: string;
   onChangeText: (text: string) => void;
   iconLeft?: keyof typeof MaterialCommunityIcons.glyphMap;
 }
@@ -19,6 +20,7 @@ const InputRN: React.FC<Input> = ({
   placeholder,
   onChangeText,
   containerStyle,
+  placeholderTextColor,
   onClear,
   ...props
 }) => {
@@ -31,6 +33,7 @@ const InputRN: React.FC<Input> = ({
           placeholder={placeholder}
           onChangeText={onChangeText}
           style={[styles.input, inputStyle]}
+          placeholderTextColor={placeholderTextColor}
           {...props}
         />
       </View>
