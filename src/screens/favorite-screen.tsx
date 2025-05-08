@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from "react-native";
 import { GradientWrapper } from "../components";
 
 const FavoriteScreen = () => {
-  const headerHome = () => {
+  const headerFavorite = () => {
     return (
       <View style={styles.headerContainer}>
         <Text style={styles.greeting}>Favoritos</Text>
@@ -15,7 +15,7 @@ const FavoriteScreen = () => {
 
   return <GradientWrapper>
     <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-      {headerHome()}
+      {headerFavorite()}
     </View>
   </GradientWrapper>
 };
