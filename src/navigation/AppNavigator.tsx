@@ -1,8 +1,9 @@
-import React from 'react';
-import { Colors } from '../config';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { CoinsScreen, ConfigScreen } from '../screens';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from "react";
+import { Colors } from "../config";
+import { Platform, StatusBar } from "react-native";
+import { CoinsScreen, ConfigScreen } from "../screens";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 class AppNavigator extends React.Component {
   getScreenOptions() {
@@ -10,15 +11,16 @@ class AppNavigator extends React.Component {
       tabBarActiveTintColor: Colors.Primary,
       tabBarInactiveTintColor: Colors.Secondary,
       tabBarStyle: {
-        backgroundColor: Colors.Background,
         borderTopWidth: 0,
+        backgroundColor: Colors.Background,
+        height: Platform.OS === 'android' ? 70 : 90,
       },
       tabBarLabelStyle: {
         fontSize: 12,
         marginTop: 5,
       },
       tabBarIconStyle: {
-        marginTop: 1,
+        marginTop: 0,
       },
       tabBarItemStyle: {
         borderBottomWidth: 0,
@@ -28,28 +30,35 @@ class AppNavigator extends React.Component {
   render() {
     const Tab = createBottomTabNavigator();
     return (
-      <Tab.Navigator screenOptions={this.getScreenOptions()}>
-        <Tab.Screen
-          name="Home"
-          component={CoinsScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="currency-usd" size={size} color={color} />
-            ),
-            headerShown: false,
-          }}
+      <>
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="light-content"
         />
-        <Tab.Screen
-          name="Profile"
-          component={ConfigScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="face-woman-profile" size={size} color={color} />
-            ),
-            headerShown: false,
-          }}
-        />
-      </Tab.Navigator>
+        <Tab.Navigator screenOptions={this.getScreenOptions()}>
+          <Tab.Screen
+            name="Home"
+            component={CoinsScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="currency-usd" size={size} color={color} />
+              ),
+              headerShown: false,
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={ConfigScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="face-woman-profile" size={size} color={color} />
+              ),
+              headerShown: false,
+            }}
+          />
+        </Tab.Navigator>
+      </>
     );
   }
 }

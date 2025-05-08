@@ -1,11 +1,13 @@
 import React from "react";
 import { Colors } from "../config";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { GradientWrapper } from "../components";
 
 const CoinScreen = () => {
   return <GradientWrapper>
-    <View></View>
+    <View style={{backgroundColor: 'red'}}>
+      <Text>ss</Text>
+    </View>
   </GradientWrapper>
 };
 
