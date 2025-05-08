@@ -24,7 +24,7 @@ const HomeScreen = () => {
       <LinearGradient
         colors={[Colors.Primary, Colors.Background]}
         style={styles.gradient}
-        start={{ x: 3, y: -2 }}
+        start={{ x: 2, y: -2 }}
         end={{ x: -1, y: 0 }}
       >
         <Pressable onPress={handlePress}>
