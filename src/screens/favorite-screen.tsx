@@ -1,9 +1,22 @@
 import React from "react";
 import { Colors } from "../config";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { GradientWrapper } from "../components";
+import CoinsWallet from "../components/card";
 
 const FavoriteScreen = () => {
+  const list = () => {
+    return (
+      <ScrollView style={{ paddingTop: 20 }}>
+        {Array.from({ length: 15 }, (_, index) => (
+          <View key={index} style={{ marginBottom: 10 }}>
+            <CoinsWallet />
+          </View>
+        ))}
+      </ScrollView>
+    )
+  }
+
   const headerFavorite = () => {
     return (
       <View style={styles.headerContainer}>
@@ -13,11 +26,14 @@ const FavoriteScreen = () => {
     );
   };
 
-  return <GradientWrapper>
-    <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-      {headerFavorite()}
-    </View>
-  </GradientWrapper>
+  return (
+    <GradientWrapper>
+      <View style={{ paddingLeft: 30, paddingRight: 30 }}>
+        {headerFavorite()}
+        {list()}
+      </View>
+    </GradientWrapper>
+  )
 };
 
 const styles = StyleSheet.create({

@@ -79,7 +79,6 @@ const HomeScreen = () => {
         ))}
       </ScrollView>
     )
-
   }
 
   const renderModals = () => {
