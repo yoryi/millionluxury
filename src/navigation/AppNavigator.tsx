@@ -7,21 +7,47 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 class AppNavigator extends React.Component {
   getScreenOptions() {
     return {
-      tabBarActiveTintColor: Colors.Background,
-      tabBarInactiveTintColor: Colors.Background50
+      tabBarActiveTintColor: Colors.Primary,
+      tabBarInactiveTintColor: Colors.Background50,
+      tabBarStyle: {
+        backgroundColor: Colors.Background,
+        borderTopWidth: 0,
+      },
+      tabBarLabelStyle: {
+        fontSize: 14,
+      },
+      tabBarIconStyle: {
+        marginTop: 5,
+      },
+      tabBarItemStyle: {
+        borderBottomWidth: 0,
+      },
     };
   }
   render() {
     const Tab = createBottomTabNavigator();
     return (
-      <Tab.Navigator
-        screenOptions={this.getScreenOptions()}>
-        <Tab.Screen name="Coins" component={CoinsScreen} options={{
-          tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />, headerShown: false
-        }} />
-        <Tab.Screen name="Config" component={ConfigScreen} options={{
-          tabBarIcon: ({ color, size }) => <Ionicons name="heart" size={size} color={color} />, headerShown: false
-        }} />
+      <Tab.Navigator screenOptions={this.getScreenOptions()}>
+        <Tab.Screen
+          name="Coins"
+          component={CoinsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size} color={color} />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="Config"
+          component={ConfigScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart" size={size} color={color} />
+            ),
+            headerShown: false,
+          }}
+        />
       </Tab.Navigator>
     );
   }

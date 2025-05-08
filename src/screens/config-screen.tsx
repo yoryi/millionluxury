@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
+import { Colors } from "../config";
 
 class ConfigScreen extends Component {
   constructor(props: {}) {
@@ -14,7 +15,7 @@ class ConfigScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: Colors.Background,
   },
 });
 
