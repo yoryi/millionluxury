@@ -2,10 +2,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 class SplashScreenManager {
-  isReady: boolean;
-  constructor() {
-    this.isReady = false;
-  }
+  isReady: boolean = false;
   preventAutoHide() {
     SplashScreen.preventAutoHideAsync();
   }

@@ -1,12 +1,13 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Colors } from "../config";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, ScrollView } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { GradientWrapper, InputRN, SheetModal } from "../components";
 import SwitchWithFilters from "../features/switchWithFilters";
+import CoinsWallet from "../components/card";
 
 const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -68,6 +69,19 @@ const HomeScreen = () => {
     );
   };
 
+  const list = () => {
+    return (
+      <ScrollView>
+        {Array.from({ length: 15 }, (_, index) => (
+          <View key={index} style={{ marginBottom: 10 }}>
+            <CoinsWallet />
+          </View>
+        ))}
+      </ScrollView>
+    )
+
+  }
+
   const renderModals = () => {
     return (
       isFilterOpen ?
@@ -100,6 +114,7 @@ const HomeScreen = () => {
           {headerHome()}
           {CardTotal()}
           {ListCoins()}
+          {list()}
         </View>
       </GradientWrapper>
       {renderModals()}
@@ -162,9 +177,6 @@ const styles = StyleSheet.create({
   },
   listCoins: {
     marginTop: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start'
   },
   listTitle: {
     fontSize: 18,

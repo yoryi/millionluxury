@@ -12,7 +12,7 @@ export default function App() {
   if (isReady) return null;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'red' }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <NavigationContainer>
