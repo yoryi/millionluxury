@@ -15,10 +15,10 @@ interface Input extends TextInputProps {
 const InputRN: React.FC<Input> = ({
   value,
   iconLeft,
-  containerStyle,
   inputStyle,
   placeholder,
   onChangeText,
+  containerStyle,
   onClear,
   ...props
 }) => {
@@ -36,9 +36,9 @@ const InputRN: React.FC<Input> = ({
       </View>
       {value && (
         <MaterialCommunityIcons
-          name="close-circle"
           size={24}
           color="#888"
+          name="close-circle"
           style={styles.clearIcon}
           onPress={onClear}
         />
