@@ -30,7 +30,7 @@ const HomeScreen = () => {
       >
         <Pressable onPress={handlePress}>
           <Text style={styles.title}>Estadísticas Globales</Text>
-          <Text style={styles.subTitle}>{isExpanded ? null : 'Despliega para ver mas informacion'}</Text>
+          <Text style={styles.subTitle}>{isExpanded ? null : 'Presiona para ver detalles'}</Text>
           <Reanimated.View style={contentStyle}>
             <Text style={styles.info}>💰 Total en portafolio: $5,250.45</Text>
             <Text style={styles.info}>📊 Criptomonedas activas: 8</Text>
