@@ -1,7 +1,7 @@
 import React from "react";
 import { Colors } from "../config";
 import { View, StyleSheet, Text, FlatList } from "react-native";
-import { Card, Wrapper } from "../components";
+import { Card, Header, Wrapper } from "../components";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
@@ -10,10 +10,13 @@ const FavoriteScreen = () => {
   return (
     <Wrapper>
       <View style={{ paddingLeft: 25, paddingRight: 25, height: '100%' }}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.greeting}>Favoritos</Text>
-          <Text style={styles.greeting2}>Aquí puedes ver todos tus coins favoritos</Text>
-        </View>
+        <Header
+          type={'text'}
+          title={'Favoritos'}
+          optinalText={'Aquí puedes ver todos tus coins favoritos'}
+          onLeftPress={() => navigation.goBack()}
+        />
+        
         <FlatList
           renderItem={() => <Card onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
           data={Array.from({ length: 15 })}

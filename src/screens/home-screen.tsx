@@ -1,31 +1,17 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Colors } from "../config";
-import { LinearGradient } from "expo-linear-gradient";
-import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
-import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
+import { View, StyleSheet, FlatList } from "react-native";
+
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Wrapper, InputRN, Modal, Card } from "../components";
-import SwitchWithFilters from "../features/switchFilters";
+import { Wrapper, InputRN, Modal, Card, Header, Switch, GlobalCard } from "../components";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [inputSearch, setInputSearch] = useState("");
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  const contentStyle = useAnimatedStyle(() => {
-    return {
-      height: withTiming(isExpanded ? 80 : 0, { duration: 300 }),
-      opacity: withTiming(isExpanded ? 1 : 0, { duration: 300 }),
-    };
-  });
-
-  const handlePress = () => {
-    setIsExpanded(prev => !prev);
-  };
 
   const toggleModal = useCallback(() => {
     setIsFilterOpen(!isFilterOpen)
@@ -35,34 +21,18 @@ const HomeScreen = () => {
   return (
     <Wrapper>
       <View style={{ paddingLeft: 25, paddingRight: 25, height: '100%' }}>
-
-        <View style={styles.headerContainer}>
-          <Text style={styles.greeting}>¡Hola! 👋 </Text>
-          <Text style={styles.greeting2}>Bienvenido a Million Luxury</Text>
-          <Text style={styles.date}>Viernes, 12 de Diciembre, 2025</Text>
-        </View>
-
-        <LinearGradient
-          colors={[Colors.primary, Colors.background]}
-          style={styles.gradient}
-          start={{ x: 1, y: -2 }}
-          end={{ x: -1, y: 0 }}
-        >
-          <Pressable onPress={handlePress}>
-            <Text style={styles.title}>Estadísticas Globales</Text>
-            <Text style={styles.subTitle}>{isExpanded ? null : 'Presiona para ver detalles'}</Text>
-            <Reanimated.View style={contentStyle}>
-              <Text style={styles.info}>💰 Total en portafolio: $5,250.45</Text>
-              <Text style={styles.info}>📊 Criptomonedas activas: 8</Text>
-            </Reanimated.View>
-          </Pressable>
-        </LinearGradient>
-
-        <SwitchWithFilters
+        <Header
+          type={'text'}
+          title={'¡Hola! 👋'}
+          subtitle={'Bienvenido a Million Luxury'}
+          optinalText={'adasdas'}
+          onLeftPress={() => navigation.goBack()}
+        />
+        <GlobalCard />
+        <Switch
           containerStyle={{ paddingTop: 15 }}
           onOpenFilters={toggleModal}
         />
-
         <FlatList
           renderItem={() => <Card
             onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
