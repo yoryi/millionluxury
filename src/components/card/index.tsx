@@ -11,20 +11,20 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
  *
  * @example
  * ```tsx
- * <CardWallet onPress={() => console.log("Card pressed")} />
+ * <Card onPress={() => console.log("Card pressed")} />
  * ```
  */
 
-interface CardWalletProps {
+interface CardProps {
   onPress?: () => void;
 }
 
-interface CardWalletState {
+interface CardState {
   isLiked: boolean;
 }
 
-class CardWallet extends Component<CardWalletProps, CardWalletState> {
-  constructor(props: CardWalletProps) {
+class Card extends Component<CardProps, CardState> {
+  constructor(props: CardProps) {
     super(props);
     this.state = {
       isLiked: false,
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CardWallet;
+export default Card;
