@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Colors } from '../../config';
 import { LinearGradient } from 'expo-linear-gradient';
-import { MarketData } from '../../features/statsCard/type/type-response';
 import { Text, Pressable, StyleSheet, Animated, ActivityIndicator } from 'react-native';
-
 
 /**
  * A global statistics card component displaying cryptocurrency data with an expandable view.
@@ -27,7 +25,7 @@ import { Text, Pressable, StyleSheet, Animated, ActivityIndicator } from 'react-
 interface GlobalCardProps {
   onPress?: () => void;
   loading: boolean;
-  data: MarketData;
+  data: any;
 }
 
 interface GlobalCardState {

@@ -3,8 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ViewStyle } from 'react-nativ
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../config';
 
-type StateType = 'moneda' | 'exchange';
-
+export type StateType = 'moneda' | 'exchange';
 interface SwitchComponentProps {
   onSelect?: (selected: StateType) => void;
   onOpenFilters?: () => void;

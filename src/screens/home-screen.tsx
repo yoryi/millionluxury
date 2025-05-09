@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Colors } from "../config";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Wrapper, InputRN, Modal, Card, Header, Switch } from "../components";
@@ -8,11 +8,14 @@ import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { formatDate } from "../utils";
 import StatsCard from "../features/statsCard";
+import WalletList from "../features/walletList";
+import { StateType } from "../components/switch";
 
 const HomeScreen = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [coinType, setCoinType] = useState<StateType>('moneda');
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const formattedDate = formatDate(new Date());
@@ -34,19 +37,14 @@ const HomeScreen = () => {
         />
         <StatsCard />
         <Switch
-          containerStyle={{ paddingTop: 15 }}
+          onSelect={setCoinType}
           onOpenFilters={toggleModal}
+          containerStyle={{ paddingTop: 15 }}
         />
-        <FlatList
-          renderItem={() => <Card
-            onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
-          data={Array.from({ length: 15 })}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingTop: 30 }}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-        />
+        <WalletList type={coinType} />
 
+
+        {/* Modals */}
         {isFilterOpen && <Modal
           snapPoints={["85%"]}
           bottomSheetModalRef={bottomSheetModalRef}
@@ -66,7 +64,13 @@ const HomeScreen = () => {
           <FlatList
             renderItem={() => {
               return (
-                <Card onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />
+                <Card
+                  onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })}
+                  id={""}
+                  title={""}
+                  value={""}
+                  subtitle={""}
+                />
               )
             }}
             data={Array.from({ length: 15 })}
@@ -80,51 +84,5 @@ const HomeScreen = () => {
     </Wrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  gradient: {
-    borderRadius: 16,
-    marginVertical: 16,
-    paddingVertical: 20,
-    paddingHorizontal: 25,
-    width: "100%",
-    alignSelf: "center",
-    marginTop: 30,
-  },
-  headerContainer: {
-    gap: 5,
-    paddingTop: 20,
-  },
-  greeting2: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: Colors.secondary,
-  },
-  greeting: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: Colors.secondary,
-  },
-  date: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: Colors.secondary,
-    marginBottom: 10,
-  },
-  subTitle: {
-    fontSize: 12,
-    fontWeight: "bold",
-    color: Colors.secondary,
-  },
-  info: {
-    fontSize: 16,
-    color: Colors.secondary,
-    marginTop: 8,
-  }
-});
 
 export default HomeScreen;

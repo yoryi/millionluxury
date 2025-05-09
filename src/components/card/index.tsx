@@ -4,18 +4,22 @@ import { Ionicons } from '@expo/vector-icons';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 /**
- * A wallet card component displaying cryptocurrency information with a like button (OOP version).
+ * A wallet card component displaying dynamic cryptocurrency information with a like button (OOP version).
  *
  * @component
- * @param {() => void} [onPress] - Optional callback triggered on card press.
+ * @param {CardProps} props - Properties of the card component.
  *
  * @example
  * ```tsx
- * <Card onPress={() => console.log("Card pressed")} />
+ * <Card id="1" title="Bitcoin" value="$6456.52" subtitle="USA" onPress={() => console.log("Card pressed")}/>
  * ```
  */
 
 interface CardProps {
+  id: string;
+  title: string;
+  value: string;
+  subtitle: string;
   onPress?: () => void;
 }
 
@@ -36,15 +40,14 @@ class Card extends Component<CardProps, CardState> {
   };
 
   render() {
-    const { onPress } = this.props;
+    const { onPress, title, value, subtitle } = this.props;
     const { isLiked } = this.state;
-
     return (
       <TouchableOpacity style={styles.card} onPress={onPress}>
         <View style={styles.header}>
-          <Text style={styles.title}>Bitcoin (BTC)</Text>
+          <Text style={styles.title}>{title}</Text>
           <View style={styles.priceContainer}>
-            <Text style={styles.price}>$6456.52</Text>
+            <Text style={styles.price}>${value}</Text>
             <TouchableOpacity onPress={this.toggleLike}>
               <Ionicons
                 name={isLiked ? "heart" : "heart-outline"}
@@ -55,9 +58,7 @@ class Card extends Component<CardProps, CardState> {
           </View>
         </View>
         <View style={styles.statsContainer}>
-          <Text style={styles.stat}>24h: -1.47%</Text>
-          <Text style={styles.stat}>1h: 0.05%</Text>
-          <Text style={styles.stat}>7d: -1.07%</Text>
+          <Text style={styles.stat}>{subtitle || "-"}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   stat: {
     fontSize: 14,
