@@ -4,6 +4,26 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MarketData } from '../../features/statsCard/type/type-response';
 import { Text, Pressable, StyleSheet, Animated, ActivityIndicator } from 'react-native';
 
+
+/**
+ * A global statistics card component displaying cryptocurrency data with an expandable view.
+ * It includes a loading indicator while data is being fetched and allows expansion for more details.
+ *
+ * @component
+ * @param {() => void} [onPress] - Optional callback triggered when the card is pressed.
+ * @param {boolean} loading - A flag indicating whether the card is in loading state.
+ * @param {MarketData} data - The market data to display in the card.
+ *
+ * @example
+ * ```tsx
+ * <GlobalCard
+ *   onPress={() => console.log("Card pressed")}
+ *   loading={false}
+ *   data={{ total_mcap: 1000000000, coins_count: 10000, active_markets: 50 }}
+ * />
+ * ```
+ */
+
 interface GlobalCardProps {
   onPress?: () => void;
   loading: boolean;
@@ -46,7 +66,7 @@ class GlobalCard extends Component<GlobalCardProps, GlobalCardState> {
     const { isExpanded } = this.state;
 
     Animated.timing(this.height, {
-      toValue: isExpanded ? 100 : 0,
+      toValue: isExpanded ? 120 : 0,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -77,7 +97,7 @@ class GlobalCard extends Component<GlobalCardProps, GlobalCardState> {
               <ActivityIndicator size="small" color={Colors.secondary} />
             ) : data ? (
               <>
-                <Text style={styles.info}>💰 Capitalización Total: ${data.active_markets}</Text>
+                <Text style={styles.info}>💰 Capitalización Total: ${data.total_mcap}</Text>
                 <Text style={styles.info}>📊 Criptomonedas Activas: {data.coins_count}</Text>
                 <Text style={styles.info}>📈 Mercados Activos: {data.active_markets}</Text>
               </>
