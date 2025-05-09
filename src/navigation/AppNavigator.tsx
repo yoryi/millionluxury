@@ -5,13 +5,7 @@ import { Colors } from "../config";
 import { Platform } from "react-native";
 import { CoinsScreen, FavoriteScreen, DetailsScreen } from "../screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-const Routes = {
-  Home: "Home",
-  Tabs: "Tabs",
-  Favorite: "Favorite",
-  Details: "Details",
-};
+import { Routes } from "../types/navigation";
 
 class TabNavigator extends React.Component {
   private Tab = createBottomTabNavigator();

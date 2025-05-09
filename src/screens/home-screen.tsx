@@ -7,12 +7,15 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { GradientWrapper, InputRN, SheetModal } from "../components";
 import SwitchWithFilters from "../features/switchWithFilters";
 import CoinsWallet from "../components/card";
+import { RootStackParamList } from "../types/navigation";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [inputSearch, setInputSearch] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const contentStyle = useAnimatedStyle(() => {
     return {
@@ -62,7 +65,8 @@ const HomeScreen = () => {
         />
 
         <FlatList
-          renderItem={() => <CoinsWallet />}
+          renderItem={() => <CoinsWallet 
+            onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
           data={Array.from({ length: 15 })}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingTop: 30 }}
@@ -87,7 +91,11 @@ const HomeScreen = () => {
             containerStyle={{ backgroundColor: Colors.Background50 }}
           />
           <FlatList
-            renderItem={() => <CoinsWallet />}
+            renderItem={() => {
+              return (
+                <CoinsWallet onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />
+              )
+            }}
             data={Array.from({ length: 15 })}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingTop: 30 }}

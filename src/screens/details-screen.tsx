@@ -7,7 +7,7 @@ const DetailsScreen = () => {
   const headerHome = () => {
     return (
       <View style={styles.headerContainer}>
-        <Text style={styles.greeting}>¡Hola! 👋 </Text>
+        <Text style={styles.greeting}>Detalles</Text>
         <Text style={styles.greeting2}>Bienvenido a Million Luxury</Text>
         <Text style={styles.date}>Viernes, 12 de Diciembre, 2025</Text>
       </View>

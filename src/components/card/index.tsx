@@ -3,18 +3,20 @@ import { Colors } from '../../config';
 import { Ionicons } from '@expo/vector-icons';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const CoinsWallet = () => {
-    const [isLiked, setIsLiked] = useState(false);
-    const toggleLike = () => {
-        setIsLiked(!isLiked);
-    };
+interface CoinsWalletProps {
+    onPress?: () => void;
+}
+
+const CoinsWallet: React.FC<CoinsWalletProps> = ({ onPress }) => {
+    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const onToggle = () => setIsLiked(!isLiked);
     return (
-        <View style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={onPress}>
             <View style={styles.header}>
                 <Text style={styles.title}>Bitcoin (BTC)</Text>
                 <View style={styles.priceContainer}>
                     <Text style={styles.price}>$6456.52</Text>
-                    <TouchableOpacity onPress={toggleLike}>
+                    <TouchableOpacity onPress={onToggle}>
                         <Ionicons
                             name={isLiked ? "heart" : "heart-outline"}
                             size={24}
@@ -28,7 +30,7 @@ const CoinsWallet = () => {
                 <Text style={styles.stat}>1h: 0.05%</Text>
                 <Text style={styles.stat}>7d: -1.07%</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
