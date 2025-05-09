@@ -3,7 +3,7 @@ import { Colors } from "../config";
 import { View, StyleSheet, FlatList } from "react-native";
 
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Wrapper, InputRN, Modal, Card, Header, Switch, GlobalCard } from "../components";
+import { Wrapper, InputRN, Modal, Card, Header, Switch } from "../components";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { formatDate } from "../utils";

@@ -1,19 +1,19 @@
-import { ApiConfig } from '../../config';
-import ApiService from './services/ApiService';
-
 /**
  * Configures and initializes the API service with the base URL provided by `ApiConfig`.
  *
- * This module creates an instance of `ApiService` using the configured base URL and exports it for use throughout the application.
+ * This module creates an instance of `APIClient` using the configured base URL and exports it for use throughout the application.
  *
  * @module
  * @example
  * ```tsx
- * import { apiService } from './services/apiService';
- * apiService.getData(); // Example of how to use the API service
+ * import apiClient from './services/apiService';
+ * apiClient.getData(); // Example of how to use the API service
  * ```
  */
 
-const apiUrl = ApiConfig.getBaseURL()
-export const apiService = new ApiService(apiUrl);
-export { ApiService };
+import { ApiConfig } from '../../config';
+import APIClient from './services/ApiService';
+
+const baseURL = ApiConfig.prod;
+const apiClient = new APIClient(baseURL);
+export default apiClient;

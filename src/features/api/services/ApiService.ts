@@ -1,11 +1,23 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
-class ApiService {
+/**
+ * APIClient class for making HTTP requests using Axios.
+ * 
+ * This class provides a consistent and reusable way to interact with APIs, including built-in error handling.
+ * 
+ * @class APIClient
+ * @example
+ * ```tsx
+ * const apiClient = new APIClient('https://api.example.com');
+ * apiClient.get('/users'); // Example of GET request
+ * ```
+ */
+class APIClient {
     private axiosInstance: AxiosInstance;
+
     /**
-     * Creates an instance of ApiService with the provided base URL.
-     * 
-     * @param {string} baseURL - The base URL for API requests.
+     * Initializes a new instance of the APIClient.
+     * @param baseURL - The base URL for the API requests.
      */
     constructor(baseURL: string) {
         this.axiosInstance = axios.create({
@@ -15,57 +27,85 @@ class ApiService {
             },
             withCredentials: false,
         });
-
+        this.setupInterceptors();
+    }
+    
+    private setupInterceptors() {
         this.axiosInstance.interceptors.request.use(
-            (config) => {
-                return config;
-            },
-            (error) => {
-                return Promise.reject(error);
-            }
+            (config) => config,
+            (error) => Promise.reject(error)
         );
 
         this.axiosInstance.interceptors.response.use(
-            (response) => {
-                return response;
-            },
-            (error) => {
-                return Promise.reject(error);
-            }
+            (response) => response,
+            (error) => this.handleError(error)
         );
     }
 
     /**
-     * Makes a GET request to the specified URL and returns the response data.
-     * 
-     * @param {string} url - The API endpoint to request.
-     * @returns {Promise<T>} - The data returned from the GET request.
-     * @throws Will throw an error if the request fails.
+     * Handles API errors and logs them appropriately.
+     * @param error - The error object from the Axios request.
+     * @returns A rejected promise with the error.
      */
-    public async get<T>(url: string): Promise<T> {
-        try {
-            const response: AxiosResponse<T> = await this.axiosInstance.get<T>(url);
-            return response.data;
-        } catch (error) {
-            throw error;
+    private handleError(error: AxiosError): Promise<never> {
+        if (error.response) {
+            console.error('API Error:', error.response.status, error.response.data);
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+        } else {
+            console.error('Request error:', error.message);
         }
+        return Promise.reject(error);
     }
 
     /**
-     * Makes a POST request to the specified URL with the provided data and returns the response data.
-     * 
-     * @param {string} url - The API endpoint to request.
-     * @param {U} data - The data to send in the POST request.
-     * @returns {Promise<T>} - The data returned from the POST request.
-     * @throws Will throw an error if the request fails.
+     * Makes a generic HTTP request.
+     * @param config - The Axios request configuration.
+     * @returns The response data of the specified type.
      */
-    public async post<T, U = T>(url: string, data: U): Promise<T> {
-        try {
-            const response: AxiosResponse<T> = await this.axiosInstance.post<T>(url, data);
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
+    public async request<T>(config: AxiosRequestConfig): Promise<T> {
+        const response: AxiosResponse<T> = await this.axiosInstance.request<T>(config);
+        return response.data;
+    }
+
+    /**
+     * Performs a GET request.
+     * @param url - The URL of the API endpoint.
+     * @param params - Optional query parameters.
+     * @returns The response data of the specified type.
+     */
+    public async get<T>(url: string, params?: any): Promise<T> {
+        return this.request<T>({ method: 'GET', url, params });
+    }
+
+    /**
+     * Performs a POST request.
+     * @param url - The URL of the API endpoint.
+     * @param data - The request payload.
+     * @returns The response data of the specified type.
+     */
+    public async post<T, U = any>(url: string, data?: U): Promise<T> {
+        return this.request<T>({ method: 'POST', url, data });
+    }
+
+    /**
+     * Performs a PUT request.
+     * @param url - The URL of the API endpoint.
+     * @param data - The request payload.
+     * @returns The response data of the specified type.
+     */
+    public async put<T, U = any>(url: string, data?: U): Promise<T> {
+        return this.request<T>({ method: 'PUT', url, data });
+    }
+
+    /**
+     * Performs a DELETE request.
+     * @param url - The URL of the API endpoint.
+     * @returns The response data of the specified type.
+     */
+    public async delete<T>(url: string): Promise<T> {
+        return this.request<T>({ method: 'DELETE', url });
     }
 }
-export default ApiService;
+
+export default APIClient;

@@ -19,7 +19,7 @@ const FavoriteScreen = () => {
         
         <FlatList
           renderItem={() => <Card onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
-          data={Array.from({ length: 15 })}
+          data={Array.from({ length: 1 })}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingTop: 30 }}
           keyExtractor={(item, index) => index.toString()}

@@ -1,8 +1,8 @@
 import React from "react";
 import { GlobalCard } from "../../components";
-import { useStatsCardService } from "./hooks/useStatsCard";
+import { useAPIClient } from "../../hooks/useAPIClient";
 
 export default function StatsCard() {
-  const { data, fetchData, loading } = useStatsCardService();
-  return <GlobalCard onPress={fetchData} loading={loading} data={data?.[0]} />;
+  const { data, loading, error, fetch } = useAPIClient();
+  return <GlobalCard onPress={() => fetch('GET', 'api/global/')} loading={loading} data={data?.[0]} />;
 }
