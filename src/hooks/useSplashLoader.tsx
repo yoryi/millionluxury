@@ -40,9 +40,9 @@ class SplashScreenManager {
 /**
  * Custom hook that manages splash screen visibility during app initialization.
  * 
- * @returns {Object} - { isReady: boolean }
+ * @returns - { isReady: boolean }
  */
-export function useSplashLoader(): object {
+export function useSplashLoader() {
   const splashScreenManager = new SplashScreenManager();
 
   useEffect(() => {
