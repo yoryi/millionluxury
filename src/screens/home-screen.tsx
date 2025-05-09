@@ -4,9 +4,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Wrapper, InputRN, Modal } from "../components";
+import { Wrapper, InputRN, Modal, Card } from "../components";
 import SwitchWithFilters from "../features/switchWithFilters";
-import CoinsWallet from "../components/card";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
@@ -44,7 +43,7 @@ const HomeScreen = () => {
         </View>
 
         <LinearGradient
-          colors={[Colors.Primary, Colors.Background]}
+          colors={[Colors.primary, Colors.background]}
           style={styles.gradient}
           start={{ x: 1, y: -2 }}
           end={{ x: -1, y: 0 }}
@@ -65,7 +64,7 @@ const HomeScreen = () => {
         />
 
         <FlatList
-          renderItem={() => <CoinsWallet
+          renderItem={() => <Card
             onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
           data={Array.from({ length: 15 })}
           showsVerticalScrollIndicator={false}
@@ -78,22 +77,22 @@ const HomeScreen = () => {
           snapPoints={["85%"]}
           bottomSheetModalRef={bottomSheetModalRef}
           onClose={() => bottomSheetModalRef.current?.close()}
-          backgroundStyle={{ backgroundColor: Colors.Background }}
-          modalContainerStyle={{ backgroundColor: Colors.Background }}>
+          backgroundStyle={{ backgroundColor: Colors.background }}
+          modalContainerStyle={{ backgroundColor: Colors.background }}>
           <InputRN
             value={inputSearch}
             iconLeft={'magnify'}
             placeholder={"Search"}
             onChangeText={setInputSearch}
             onClear={() => setInputSearch('')}
-            style={{ color: Colors.Secondary }}
-            placeholderTextColor={Colors.TextSecondary}
-            containerStyle={{ backgroundColor: Colors.Background50 }}
+            style={{ color: Colors.secondary }}
+            placeholderTextColor={Colors.textSecondary}
+            containerStyle={{ backgroundColor: Colors.background50 }}
           />
           <FlatList
             renderItem={() => {
               return (
-                <CoinsWallet onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />
+                <Card onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />
               )
             }}
             data={Array.from({ length: 15 })}
@@ -125,31 +124,31 @@ const styles = StyleSheet.create({
   greeting2: {
     fontSize: 15,
     fontWeight: "bold",
-    color: Colors.Secondary,
+    color: Colors.secondary,
   },
   greeting: {
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.Secondary,
+    color: Colors.secondary,
   },
   date: {
     fontSize: 14,
-    color: Colors.TextSecondary,
+    color: Colors.textSecondary,
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.Secondary,
+    color: Colors.secondary,
     marginBottom: 10,
   },
   subTitle: {
     fontSize: 12,
     fontWeight: "bold",
-    color: Colors.Secondary,
+    color: Colors.secondary,
   },
   info: {
     fontSize: 16,
-    color: Colors.Secondary,
+    color: Colors.secondary,
     marginTop: 8,
   }
 });

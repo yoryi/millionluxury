@@ -10,11 +10,11 @@ import { Routes } from "../types/navigation";
 class TabNavigator extends React.Component {
   private Tab = createBottomTabNavigator();
   private screenOptions = {
-    tabBarActiveTintColor: Colors.Primary,
-    tabBarInactiveTintColor: Colors.Secondary,
+    tabBarActiveTintColor: Colors.primary,
+    tabBarInactiveTintColor: Colors.secondary,
     tabBarStyle: {
       borderTopWidth: 0,
-      backgroundColor: Colors.Background,
+      backgroundColor: Colors.background,
       height: Platform.OS === "android" ? 70 : 90,
     },
     tabBarLabelStyle: {
@@ -81,5 +81,4 @@ class AppNavigator extends React.Component {
     );
   }
 }
-
 export default AppNavigator;

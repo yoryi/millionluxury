@@ -1,19 +1,12 @@
-class BaseURLConfig {
-    private production: string;
-    private currentBaseURL: string;
-  
-    constructor() {
-      this.production = "https://api.coinlore.net/";
-      this.currentBaseURL = this.production;
-    }
-    public getBaseURL(): string {
-      return this.currentBaseURL;
-    }
-    public setBaseURL(url: string): void {
-      this.currentBaseURL = url;
-    }
+const BaseURL = {
+  prod: "https://api.coinlore.net/",
+
+  getBaseURL(): string {
+      return this.prod;
+  },
+  setBaseURL(url: string): void {
+      this.prod = url;
   }
-  
-  const BaseURL = new BaseURLConfig();
-  export default BaseURL;
-  
+};
+
+export default BaseURL;

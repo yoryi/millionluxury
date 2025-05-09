@@ -10,7 +10,6 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 export default function App() {
   const { isReady } = useSplashLoader();
   if (isReady) return null;
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>

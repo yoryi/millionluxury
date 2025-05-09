@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+
 class ApiService {
     private axiosInstance: AxiosInstance;
     constructor(baseURL: string) {

@@ -1,11 +1,10 @@
+import React, { Component, ReactNode, RefObject } from "react";
 import BottomSheet, { type BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import type React from "react";
-import type { RefObject } from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 
 /**
- * A reusable Bottom Sheet modal component using @gorhom/bottom-sheet.
- * 
+ * A reusable Bottom Sheet modal component using @gorhom/bottom-sheet (OOP version).
+ *
  * @component
  * @param {RefObject<BottomSheetModal | null>} bottomSheetModalRef - Reference to control the modal (open/close).
  * @param {string[]} snapPoints - Snap positions for the modal (e.g., ["25%", "50%"]).
@@ -16,46 +15,54 @@ import { StyleSheet, ViewStyle } from "react-native";
  *
  * @example
  * ```tsx
- * <SheetModal snapPoints={["40%"]} bottomSheetModalRef={bottomSheetModalRef}>
+ * <Modal snapPoints={["40%"]} bottomSheetModalRef={bottomSheetModalRef}>
  *   <Text>Contenido</Text>
- * </SheetModal>
+ * </Modal>
  * ```
  */
 
-type Props = {
+interface ModalProps {
   bottomSheetModalRef: RefObject<BottomSheetModal | null>;
   snapPoints: string[];
   backgroundStyle?: ViewStyle;
   modalContainerStyle?: ViewStyle;
-  children: React.ReactNode;
+  children: ReactNode;
   onClose?: () => void;
-};
+}
 
-const Modal = ({
-  bottomSheetModalRef,
-  snapPoints,
-  modalContainerStyle,
-  backgroundStyle,
-  children,
-  onClose = () => { },
-}: Props) => {
-  return (
-    <BottomSheet
-      onClose={onClose}
-      snapPoints={snapPoints}
-      ref={bottomSheetModalRef}
-      enablePanDownToClose={true}
-      enableDynamicSizing={false}
-      backgroundStyle={backgroundStyle}
-    >
-      <BottomSheetView style={[ModalStyles.modalContainer, modalContainerStyle]}>
-        {children}
-      </BottomSheetView>
-    </BottomSheet>
-  );
-};
+class Modal extends Component<ModalProps> {
+  static defaultProps = {
+    onClose: () => { },
+  };
 
-const ModalStyles = StyleSheet.create({
+  render() {
+    const {
+      bottomSheetModalRef,
+      snapPoints,
+      modalContainerStyle,
+      backgroundStyle,
+      children,
+      onClose = () => { }
+    } = this.props;
+
+    return (
+      <BottomSheet
+        onClose={onClose}
+        snapPoints={snapPoints}
+        ref={bottomSheetModalRef}
+        enablePanDownToClose={true}
+        enableDynamicSizing={false}
+        backgroundStyle={backgroundStyle}
+      >
+        <BottomSheetView style={[styles.modalContainer, modalContainerStyle]}>
+          {children}
+        </BottomSheetView>
+      </BottomSheet>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     paddingTop: 10,
@@ -64,4 +71,4 @@ const ModalStyles = StyleSheet.create({
   },
 });
 
-export default Modal
+export default Modal;

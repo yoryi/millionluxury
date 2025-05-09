@@ -22,7 +22,7 @@ const DetailsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.background,
   },
   headerContainer: {
     gap: 5,
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   greeting2: {
     fontSize: 15,
     fontWeight: "bold",
-    color: Colors.TextSecondary,
+    color: Colors.textPrimary,
   },
   greeting: {
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.Secondary,
+    color: Colors.secondary,
   },
 });
 
