@@ -6,12 +6,16 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Wrapper, InputRN, Modal, Card, Header, Switch, GlobalCard } from "../components";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { formatDate } from "../utils";
 
 const HomeScreen = () => {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [inputSearch, setInputSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  //Funtions
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const formattedDate = formatDate(new Date());
 
   const toggleModal = useCallback(() => {
     setIsFilterOpen(!isFilterOpen)
@@ -25,7 +29,7 @@ const HomeScreen = () => {
           type={'text'}
           title={'¡Hola! 👋'}
           subtitle={'Bienvenido a Million Luxury'}
-          optinalText={'adasdas'}
+          optinalText={formattedDate}
           onLeftPress={() => navigation.goBack()}
         />
         <GlobalCard />
