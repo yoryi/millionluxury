@@ -1,48 +1,42 @@
 import React from "react";
 import { Colors } from "../config";
-import { GradientWrapper} from "../components";
+import { Wrapper } from "../components";
 import { View, StyleSheet, Text } from "react-native";
+import { RootStackParamList } from "../types/navigation";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const DetailsScreen = () => {
-  const headerHome = () => {
-    return (
-      <View style={styles.headerContainer}>
-        <Text style={styles.greeting}>Detalles</Text>
-        <Text style={styles.greeting2}>Bienvenido a Million Luxury</Text>
-        <Text style={styles.date}>Viernes, 12 de Diciembre, 2025</Text>
-      </View>
-    );
-  };
-
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
-    <View style={{ flex: 1 }}>
-      <GradientWrapper>
-        <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-          {headerHome()}
+    <Wrapper>
+      <View style={{ paddingLeft: 25, paddingRight: 25, height: '100%' }}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.greeting}>Favoritos</Text>
+          <Text style={styles.greeting2}>Aquí puedes ver todos tus coins favoritos</Text>
         </View>
-      </GradientWrapper>
-    </View>
-  );
+      </View>
+    </Wrapper>
+  )
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.Background,
+  },
   headerContainer: {
     gap: 5,
-    marginTop: 35,
+    paddingTop: 20,
   },
   greeting2: {
     fontSize: 15,
     fontWeight: "bold",
-    color: Colors.Secondary,
+    color: Colors.TextSecondary,
   },
   greeting: {
     fontSize: 18,
     fontWeight: "bold",
     color: Colors.Secondary,
-  },
-  date: {
-    fontSize: 14,
-    color: Colors.TextSecondary,
   },
 });
 

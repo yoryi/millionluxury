@@ -3,7 +3,7 @@ import { Colors } from "../../config";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const GradientWrapper = ({ children }: { children: ReactNode }) => {
+const Wrapper = ({ children }: { children: ReactNode }) => {
     return (
         <LinearGradient
             colors={[Colors.Primary, Colors.Background]}
@@ -14,4 +14,4 @@ const GradientWrapper = ({ children }: { children: ReactNode }) => {
         </LinearGradient>
     );
 };
-export default GradientWrapper;
+export default Wrapper;

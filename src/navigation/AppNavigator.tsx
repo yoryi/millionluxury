@@ -9,7 +9,6 @@ import { Routes } from "../types/navigation";
 
 class TabNavigator extends React.Component {
   private Tab = createBottomTabNavigator();
-
   private screenOptions = {
     tabBarActiveTintColor: Colors.Primary,
     tabBarInactiveTintColor: Colors.Secondary,
@@ -29,7 +28,6 @@ class TabNavigator extends React.Component {
       borderBottomWidth: 0,
     },
   };
-
   render() {
     const { Tab } = this;
     return (
@@ -77,7 +75,7 @@ class AppNavigator extends React.Component {
         <Stack.Screen
           name={Routes.Details}
           component={DetailsScreen}
-          options={{ title: "Detalles" }}
+          options={{ title: "Detalles", headerShown: false }}
         />
       </Stack.Navigator>
     );

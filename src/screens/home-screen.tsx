@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { GradientWrapper, InputRN, SheetModal } from "../components";
+import { Wrapper, InputRN, Modal } from "../components";
 import SwitchWithFilters from "../features/switchWithFilters";
 import CoinsWallet from "../components/card";
 import { RootStackParamList } from "../types/navigation";
@@ -34,7 +34,7 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <GradientWrapper>
+    <Wrapper>
       <View style={{ paddingLeft: 25, paddingRight: 25, height: '100%' }}>
 
         <View style={styles.headerContainer}>
@@ -65,7 +65,7 @@ const HomeScreen = () => {
         />
 
         <FlatList
-          renderItem={() => <CoinsWallet 
+          renderItem={() => <CoinsWallet
             onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })} />}
           data={Array.from({ length: 15 })}
           showsVerticalScrollIndicator={false}
@@ -74,7 +74,7 @@ const HomeScreen = () => {
           ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
         />
 
-        {isFilterOpen && <SheetModal
+        {isFilterOpen && <Modal
           snapPoints={["85%"]}
           bottomSheetModalRef={bottomSheetModalRef}
           onClose={() => bottomSheetModalRef.current?.close()}
@@ -102,9 +102,9 @@ const HomeScreen = () => {
             keyExtractor={(item, index) => index.toString()}
             ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
           />
-        </SheetModal>}
+        </Modal>}
       </View>
-    </GradientWrapper>
+    </Wrapper>
   );
 };
 

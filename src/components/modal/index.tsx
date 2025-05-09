@@ -4,16 +4,15 @@ import type { RefObject } from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 
 /**
- * A simplified bottom sheet modal component using @gorhom/bottom-sheet,
- * designed to support reusable modal interactions in a React Native app.
- *
+ * A reusable Bottom Sheet modal component using @gorhom/bottom-sheet.
+ * 
  * @component
- *
- * @param {RefObject<BottomSheetModal | null>} bottomSheetModalRef - Reference to control the modal (e.g., open/close).
- * @param {string[]} snapPoints - Defines the snap positions of the modal (e.g., ["25%", "50%"]).
- * @param {ViewStyle} [modalContainerStyle] - Optional style override for the modal container.
+ * @param {RefObject<BottomSheetModal | null>} bottomSheetModalRef - Reference to control the modal (open/close).
+ * @param {string[]} snapPoints - Snap positions for the modal (e.g., ["25%", "50%"]).
+ * @param {ViewStyle} [modalContainerStyle] - Optional style for the modal container.
+ * @param {ViewStyle} [backgroundStyle] - Optional style for the modal background.
  * @param {React.ReactNode} children - Content to be rendered inside the modal.
- * @param {function} [onClose] - Optional callback function to be called when the modal is closed.
+ * @param {function} [onClose] - Optional callback when the modal is closed.
  *
  * @example
  * ```tsx
@@ -22,6 +21,7 @@ import { StyleSheet, ViewStyle } from "react-native";
  * </SheetModal>
  * ```
  */
+
 type Props = {
   bottomSheetModalRef: RefObject<BottomSheetModal | null>;
   snapPoints: string[];
@@ -31,7 +31,7 @@ type Props = {
   onClose?: () => void;
 };
 
-const SheetModal = ({
+const Modal = ({
   bottomSheetModalRef,
   snapPoints,
   modalContainerStyle,
@@ -64,4 +64,4 @@ const ModalStyles = StyleSheet.create({
   },
 });
 
-export default SheetModal
+export default Modal
