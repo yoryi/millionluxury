@@ -5,7 +5,7 @@ import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Wrapper, InputRN, Modal, Card } from "../components";
-import SwitchWithFilters from "../features/switchWithFilters";
+import SwitchWithFilters from "../features/switchFilters";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
