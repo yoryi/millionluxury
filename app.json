@@ -12,13 +12,19 @@
       "backgroundColor": "#131217"
     },
     "ios": {
-      "bundleIdentifier": "millionluxury"
+      "bundleIdentifier": "millionluxury",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#131217"
       },
+      "permissions": ["INTERNET"],
       "package": "com.millionluxury"
     }
   }

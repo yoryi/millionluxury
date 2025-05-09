@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Colors } from '../../config';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Text, Pressable, StyleSheet, Animated } from 'react-native';
+import { MarketData } from '../../features/statsCard/type/type-response';
+import { Text, Pressable, StyleSheet, Animated, ActivityIndicator } from 'react-native';
 
-/**
- * GlobalCard Component - Displays stats and animates expanded view.
- */
+interface GlobalCardProps {
+  onPress?: () => void;
+  loading: boolean;
+  data: MarketData;
+}
 
 interface GlobalCardState {
   isExpanded: boolean;
 }
 
-class GlobalCard extends Component<{}, GlobalCardState> {
+class GlobalCard extends Component<GlobalCardProps, GlobalCardState> {
   height: Animated.Value;
   opacity: Animated.Value;
 
-  constructor(props: {}) {
+  constructor(props: GlobalCardProps) {
     super(props);
     this.state = {
       isExpanded: false,
@@ -25,13 +28,16 @@ class GlobalCard extends Component<{}, GlobalCardState> {
     this.opacity = new Animated.Value(0);
   }
 
-  handlePress = () => {
+  handlePress = async () => {
     this.setState(
       (prevState) => ({
         isExpanded: !prevState.isExpanded,
       }),
-      () => {
+      async () => {
         this.animateCard();
+        if (this.state.isExpanded && this.props.onPress) {
+          this.props.onPress();
+        }
       }
     );
   };
@@ -40,7 +46,7 @@ class GlobalCard extends Component<{}, GlobalCardState> {
     const { isExpanded } = this.state;
 
     Animated.timing(this.height, {
-      toValue: isExpanded ? 80 : 0,
+      toValue: isExpanded ? 100 : 0,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -53,6 +59,7 @@ class GlobalCard extends Component<{}, GlobalCardState> {
   };
 
   render() {
+    const { data, loading } = this.props;
     return (
       <LinearGradient
         colors={[Colors.primary, Colors.background]}
@@ -66,8 +73,17 @@ class GlobalCard extends Component<{}, GlobalCardState> {
             {this.state.isExpanded ? null : 'Presiona para ver detalles'}
           </Text>
           <Animated.View style={{ height: this.height, opacity: this.opacity }}>
-            <Text style={styles.info}>💰 Total en portafolio: $5,250.45</Text>
-            <Text style={styles.info}>📊 Criptomonedas activas: 8</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color={Colors.secondary} />
+            ) : data ? (
+              <>
+                <Text style={styles.info}>💰 Capitalización Total: ${data.active_markets}</Text>
+                <Text style={styles.info}>📊 Criptomonedas Activas: {data.coins_count}</Text>
+                <Text style={styles.info}>📈 Mercados Activos: {data.active_markets}</Text>
+              </>
+            ) : (
+              <Text style={styles.info}>Cargando datos...</Text>
+            )}
           </Animated.View>
         </Pressable>
       </LinearGradient>

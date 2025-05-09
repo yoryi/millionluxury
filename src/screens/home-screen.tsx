@@ -7,13 +7,13 @@ import { Wrapper, InputRN, Modal, Card, Header, Switch, GlobalCard } from "../co
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { formatDate } from "../utils";
+import StatsCard from "../features/statsCard";
 
 const HomeScreen = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  //Funtions
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const formattedDate = formatDate(new Date());
 
@@ -32,7 +32,7 @@ const HomeScreen = () => {
           optinalText={formattedDate}
           onLeftPress={() => navigation.goBack()}
         />
-        <GlobalCard />
+        <StatsCard />
         <Switch
           containerStyle={{ paddingTop: 15 }}
           onOpenFilters={toggleModal}

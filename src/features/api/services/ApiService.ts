@@ -1,31 +1,38 @@
-/**
- * A service class for making API requests using Axios.
- *
- * This class provides methods to make GET and POST requests to the configured API URL.
- * It initializes an Axios instance with the provided base URL and default headers.
- *
- * @class ApiService
- * @param {string} baseURL - The base URL to be used for all API requests.
- */
-
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
-
     /**
      * Creates an instance of ApiService with the provided base URL.
      * 
      * @param {string} baseURL - The base URL for API requests.
      */
-
     constructor(baseURL: string) {
         this.axiosInstance = axios.create({
             baseURL,
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: false,
         });
+
+        this.axiosInstance.interceptors.request.use(
+            (config) => {
+                return config;
+            },
+            (error) => {
+                return Promise.reject(error);
+            }
+        );
+
+        this.axiosInstance.interceptors.response.use(
+            (response) => {
+                return response;
+            },
+            (error) => {
+                return Promise.reject(error);
+            }
+        );
     }
 
     /**
@@ -40,7 +47,6 @@ class ApiService {
             const response: AxiosResponse<T> = await this.axiosInstance.get<T>(url);
             return response.data;
         } catch (error) {
-            console.error('Error en GET:', error);
             throw error;
         }
     }
@@ -58,7 +64,6 @@ class ApiService {
             const response: AxiosResponse<T> = await this.axiosInstance.post<T>(url, data);
             return response.data;
         } catch (error) {
-            console.error('Error en POST:', error);
             throw error;
         }
     }
