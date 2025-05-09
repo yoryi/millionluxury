@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../../config';
 import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const CoinsWallet = () => {
     const [isLiked, setIsLiked] = useState(false);
     const toggleLike = () => {
         setIsLiked(!isLiked);
     };
-    
     return (
         <View style={styles.card}>
             <View style={styles.header}>
@@ -16,10 +15,10 @@ const CoinsWallet = () => {
                 <View style={styles.priceContainer}>
                     <Text style={styles.price}>$6456.52</Text>
                     <TouchableOpacity onPress={toggleLike}>
-                        <Ionicons 
-                            name={isLiked ? "heart" : "heart-outline"} 
-                            size={24} 
-                            color={isLiked ? "#e74c3c" : "#757575"} 
+                        <Ionicons
+                            name={isLiked ? "heart" : "heart-outline"}
+                            size={24}
+                            color={isLiked ? "#e74c3c" : "#757575"}
                         />
                     </TouchableOpacity>
                 </View>
@@ -53,11 +52,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: Colors.Primary,
+        color: Colors.Secondary,
     },
     price: {
-        fontSize: 18,
-        color: '#4caf50',
+        fontSize: 15,
+        color: Colors.Primary,
         fontWeight: 'bold',
     },
     statsContainer: {
