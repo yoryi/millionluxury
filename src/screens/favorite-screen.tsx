@@ -12,7 +12,6 @@ const FavoriteScreen = () => {
           <Text style={styles.greeting}>Favoritos</Text>
           <Text style={styles.greeting2}>Aquí puedes ver todos tus coins favoritos</Text>
         </View>
-
         <FlatList
           renderItem={() => <CoinsWallet />}
           data={Array.from({ length: 15 })}
