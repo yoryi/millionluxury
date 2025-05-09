@@ -20,6 +20,7 @@ import { StyleSheet, TextInput, View, TextInputProps, ViewStyle } from "react-na
  * <InputRN placeholder="Enter text" onChangeText={(text) => console.log(text)} />
  * ```
  */
+
 interface InputProps extends TextInputProps {
   value?: string;
   placeholder?: string;

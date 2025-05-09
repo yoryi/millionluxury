@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   active: {
-    backgroundColor: Colors.Primary,
+    backgroundColor: Colors.primary,
   },
   inactive: {
-    backgroundColor: Colors.Background50,
+    backgroundColor: Colors.background50,
   },
   text: {
     fontSize: 16,
