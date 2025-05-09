@@ -1,9 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Colors } from "../config";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, StyleSheet, Text, Pressable, ScrollView } from "react-native";
+import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
 import Reanimated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
-
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { GradientWrapper, InputRN, SheetModal } from "../components";
 import SwitchWithFilters from "../features/switchWithFilters";
@@ -31,66 +30,52 @@ const HomeScreen = () => {
     bottomSheetModalRef.current?.collapse()
   }, []);
 
-  const CardTotal = () => {
-    return (
-      <LinearGradient
-        colors={[Colors.Primary, Colors.Background]}
-        style={styles.gradient}
-        start={{ x: 1, y: -2 }}
-        end={{ x: -1, y: 0 }}
-      >
-        <Pressable onPress={handlePress}>
-          <Text style={styles.title}>Estadísticas Globales</Text>
-          <Text style={styles.subTitle}>{isExpanded ? null : 'Presiona para ver detalles'}</Text>
-          <Reanimated.View style={contentStyle}>
-            <Text style={styles.info}>💰 Total en portafolio: $5,250.45</Text>
-            <Text style={styles.info}>📊 Criptomonedas activas: 8</Text>
-          </Reanimated.View>
-        </Pressable>
-      </LinearGradient>
-    );
-  };
+  return (
+    <GradientWrapper>
+      <View style={{ paddingLeft: 25, paddingRight: 25, height: '100%' }}>
 
-  const headerHome = () => {
-    return (
-      <View style={styles.headerContainer}>
-        <Text style={styles.greeting}>¡Hola! 👋 </Text>
-        <Text style={styles.greeting2}>Bienvenido a Million Luxury</Text>
-        <Text style={styles.date}>Viernes, 12 de Diciembre, 2025</Text>
-      </View>
-    );
-  };
+        <View style={styles.headerContainer}>
+          <Text style={styles.greeting}>¡Hola! 👋 </Text>
+          <Text style={styles.greeting2}>Bienvenido a Million Luxury</Text>
+          <Text style={styles.date}>Viernes, 12 de Diciembre, 2025</Text>
+        </View>
 
-  const ListCoins = () => {
-    return (
-      <View style={styles.listCoins}>
-        <SwitchWithFilters onOpenFilters={toggleModal} />
-      </View>
-    );
-  };
+        <LinearGradient
+          colors={[Colors.Primary, Colors.Background]}
+          style={styles.gradient}
+          start={{ x: 1, y: -2 }}
+          end={{ x: -1, y: 0 }}
+        >
+          <Pressable onPress={handlePress}>
+            <Text style={styles.title}>Estadísticas Globales</Text>
+            <Text style={styles.subTitle}>{isExpanded ? null : 'Presiona para ver detalles'}</Text>
+            <Reanimated.View style={contentStyle}>
+              <Text style={styles.info}>💰 Total en portafolio: $5,250.45</Text>
+              <Text style={styles.info}>📊 Criptomonedas activas: 8</Text>
+            </Reanimated.View>
+          </Pressable>
+        </LinearGradient>
 
-  const list = () => {
-    return (
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {Array.from({ length: 15 }, (_, index) => (
-          <View key={index} style={{ marginBottom: 10 }}>
-            <CoinsWallet />
-          </View>
-        ))}
-      </ScrollView>
-    )
-  }
+        <SwitchWithFilters
+          containerStyle={{ paddingTop: 15 }}
+          onOpenFilters={toggleModal}
+        />
 
-  const renderModals = () => {
-    return (
-      isFilterOpen ?
-        <SheetModal
-          snapPoints={["80%"]}
+        <FlatList
+          renderItem={() => <CoinsWallet />}
+          data={Array.from({ length: 15 })}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingTop: 25 }}
+          keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+        />
+
+        {isFilterOpen && <SheetModal
+          snapPoints={["85%"]}
           bottomSheetModalRef={bottomSheetModalRef}
           onClose={() => bottomSheetModalRef.current?.close()}
           backgroundStyle={{ backgroundColor: Colors.Background }}
-          modalContainerStyle={{ backgroundColor: Colors.Background }}
-        >
+          modalContainerStyle={{ backgroundColor: Colors.Background }}>
           <InputRN
             value={inputSearch}
             iconLeft={'magnify'}
@@ -101,24 +86,9 @@ const HomeScreen = () => {
             placeholderTextColor={Colors.TextSecondary}
             containerStyle={{ backgroundColor: Colors.Background50 }}
           />
-          {list()}
-        </SheetModal>
-        : null
-    )
-  }
-
-  return (
-    <View style={{ flex: 1 }}>
-      <GradientWrapper>
-        <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-          {headerHome()}
-          {CardTotal()}
-          {ListCoins()}
-          {list()}
-        </View>
-      </GradientWrapper>
-      {renderModals()}
-    </View>
+        </SheetModal>}
+      </View>
+    </GradientWrapper>
   );
 };
 
@@ -134,7 +104,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     gap: 5,
-    marginTop: 35,
+    paddingTop: 20,
   },
   greeting2: {
     fontSize: 15,
@@ -149,15 +119,6 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     color: Colors.TextSecondary,
-  },
-  card: {
-    backgroundColor: Colors.Primary,
-    borderRadius: 15,
-    paddingVertical: 20,
-    paddingHorizontal: 25,
-    width: "100%",
-    alignSelf: "center",
-    marginTop: 30,
   },
   title: {
     fontSize: 18,
@@ -174,15 +135,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.Secondary,
     marginTop: 8,
-  },
-  listCoins: {
-    marginTop: 15,
-  },
-  listTitle: {
-    fontSize: 18,
-    paddingLeft: 2,
-    color: Colors.Secondary,
-    fontWeight: "bold",
   }
 });
 

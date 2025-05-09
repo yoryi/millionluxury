@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../config';
 
@@ -7,11 +7,13 @@ type StateType = 'moneda' | 'exchange';
 type NativeSwitchComponentProps = {
   onSelect?: (selected: StateType) => void;
   onOpenFilters?: () => void;
+  containerStyle?: ViewStyle;
 };
 
 const SwitchWithFilters = ({
   onSelect,
   onOpenFilters,
+  containerStyle,
 }: NativeSwitchComponentProps) => {
   const [currentSelection, setCurrentSelection] = useState<StateType>('moneda');
   const monedaStyle = currentSelection === 'moneda' ? styles.active : styles.inactive;
@@ -25,7 +27,7 @@ const SwitchWithFilters = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <TouchableOpacity
         style={[styles.button, monedaStyle]}
         onPress={() => handleSelect('moneda')}>
