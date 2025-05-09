@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import apiClient from '../features/api';
 
 interface UseAPIState<T> {
@@ -15,10 +15,6 @@ interface UseAPIState<T> {
 class APIClientService<T> {
   private state: UseAPIState<T>;
 
-  /**
-   * Creates a new instance of the API client service.
-   * Initializes the state with default values.
-   */
   constructor() {
     this.state = {
       data: null,
@@ -28,20 +24,18 @@ class APIClientService<T> {
   }
 
   /**
-   * Updates the API request state.
-   * @param {Partial<UseAPIState<T>>} newState The new state to be updated.
-   * @private
+   * Updates the internal state with the new partial state.
+   * @param newState The new state to merge with the current state.
    */
   private setState(newState: Partial<UseAPIState<T>>) {
     this.state = { ...this.state, ...newState };
   }
 
   /**
-   * Makes a request to the API using the specified HTTP method.
-   * @param {'GET' | 'POST' | 'PUT' | 'DELETE'} method The HTTP method for the request.
-   * @param {string} url The URL for the request.
-   * @param {any} [data] The data to be sent in the body of the request (if applicable).
-   * @returns {Promise<void>} A promise that resolves once the request is complete.
+   * Makes an API request based on the provided method and URL.
+   * @param method The HTTP method to use ('GET', 'POST', 'PUT', 'DELETE').
+   * @param url The URL to send the request to.
+   * @param data The data to send in the body of the request (optional).
    */
   async fetch(method: 'GET' | 'POST' | 'PUT' | 'DELETE', url: string, data?: any) {
     this.setState({ data: null, loading: true, error: null });
@@ -75,8 +69,8 @@ class APIClientService<T> {
   }
 
   /**
-   * Gets the current state of the API request.
-   * @returns {UseAPIState<T>} The current state, including data, loading state, and error.
+   * Gets the current state of the API client.
+   * @returns The current state of the API client.
    */
   getState() {
     return this.state;
@@ -84,10 +78,9 @@ class APIClientService<T> {
 }
 
 /**
- * Custom hook to interact with the API client service.
+ * Custom hook to interact with the API client.
  * @template T The type of the data expected in the API response.
- * @returns {UseAPIState<T> & { fetch: (method: 'GET' | 'POST' | 'PUT' | 'DELETE', url: string, data?: any) => Promise<void> }}
- * The state of the API request and the `fetch` function to make requests.
+ * @returns The current state (data, loading, error) and a fetch function to make API requests.
  */
 export const useAPIClient = <T = any>() => {
   const [state, setState] = useState<UseAPIState<T>>({
@@ -96,10 +89,11 @@ export const useAPIClient = <T = any>() => {
     error: null,
   });
 
-  const apiClientService = new APIClientService<T>();
+  const apiClientService = useRef(new APIClientService<T>()).current;
 
   const fetch = useCallback(
     async (method: 'GET' | 'POST' | 'PUT' | 'DELETE', url: string, data?: any) => {
+      setState((prevState) => ({ ...prevState, loading: true }));
       await apiClientService.fetch(method, url, data);
       setState(apiClientService.getState());
     },

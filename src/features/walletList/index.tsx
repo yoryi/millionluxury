@@ -40,11 +40,11 @@ export default function WalletList({ type }: WalletListProps) {
       subtitle={item.subtitle}
     />
   );
-
+  
   return (
     <View style={{ flex: 1, paddingTop: 30 }}>
       {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={Colors.primary} />
       ) : error ? (
         <View style={{ height: '100%', justifyContent: "center", alignItems: "center", paddingVertical: 20 }}>
           <Text style={{ color: Colors.secondary }}>Error al cargar los datos</Text>
