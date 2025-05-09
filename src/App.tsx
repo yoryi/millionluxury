@@ -31,7 +31,6 @@ class App extends Component<{}, AppState> {
   render() {
     const { isReady } = this.state;
     if (isReady) return null;
-
     return (
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider>
