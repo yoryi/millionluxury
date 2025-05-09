@@ -86,6 +86,14 @@ const HomeScreen = () => {
             placeholderTextColor={Colors.TextSecondary}
             containerStyle={{ backgroundColor: Colors.Background50 }}
           />
+          <FlatList
+            renderItem={() => <CoinsWallet />}
+            data={Array.from({ length: 15 })}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingTop: 30 }}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+          />
         </SheetModal>}
       </View>
     </GradientWrapper>
