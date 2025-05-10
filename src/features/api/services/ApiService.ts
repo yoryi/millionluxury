@@ -24,8 +24,10 @@ class APIClient {
             baseURL,
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             withCredentials: false,
+            timeout: 10000,
         });
         this.setupInterceptors();
     }
