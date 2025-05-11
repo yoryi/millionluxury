@@ -3,17 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, ViewStyle } from 'react-nativ
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../config';
 
-export type StateType = 'moneda' | 'exchange';
-interface SwitchComponentProps {
-  onSelect?: (selected: StateType) => void;
-  onOpenFilters?: () => void;
-  containerStyle?: ViewStyle;
-}
-
-interface SwitchComponentState {
-  currentSelection: StateType;
-}
-
 /**
  * A switch component for toggling between "Moneda" and "Exchange" options, with a filter button.
  *
@@ -30,6 +19,17 @@ interface SwitchComponentState {
  * />
  * ```
  */
+
+export type StateType = 'moneda' | 'exchange';
+interface SwitchComponentProps {
+  onSelect?: (selected: StateType) => void;
+  onOpenFilters?: () => void;
+  containerStyle?: ViewStyle;
+}
+
+interface SwitchComponentState {
+  currentSelection: StateType;
+}
 
 class Switch extends Component<SwitchComponentProps, SwitchComponentState> {
   constructor(props: SwitchComponentProps) {

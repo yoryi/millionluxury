@@ -8,7 +8,7 @@ interface FilterModalProps {
     bottomSheetModalRef: React.RefObject<any>;
 }
 
-const FilterModal: React.FC<FilterModalProps> = ({
+const Filter: React.FC<FilterModalProps> = ({
     isFilterOpen,
     bottomSheetModalRef
 }) => {
@@ -37,4 +37,4 @@ const FilterModal: React.FC<FilterModalProps> = ({
     );
 };
 
-export default FilterModal;
+export default Filter;

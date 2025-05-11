@@ -60,8 +60,8 @@ class WalletListClass {
     this.setDataNew(transformedData);
   }
 
-  handleCardPress(item: any) {
-    this.navigation.navigate("Details", { coinId: item.id });
+  handleCardPress(id: string, type: string, payload?: object) {
+    this.navigation.navigate("Details", { coinId: id, type: type, payload: payload  ?? {}});
   }
 }
 
@@ -82,11 +82,11 @@ export default function WalletList({ type }: WalletListProps) {
 
   const renderItem = ({ item }: { item: any }) => (
     <Card
-      onPress={() => walletList.handleCardPress(item)}
       id={item.id}
       title={item.title}
       value={item.value}
       subtitle={item.subtitle}
+      onPress={() => walletList.handleCardPress(item.id, type, item)}
     />
   );
 

@@ -1,52 +1,72 @@
-import React from "react";
-import { Colors } from "../config";
+import React, { useMemo } from "react";
 import { Wrapper } from "../components";
-import { View, StyleSheet, Text } from "react-native";
-import { RootStackParamList } from "../types/navigation";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Header from "../components/header";
+import { useAPIClient } from "../hooks/useAPIClient";
+import { View, StyleSheet, Text } from "react-native";
+import { NavigationProp, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { Float } from "react-native/Libraries/Types/CodegenTypes";
+
+class CoinDetails {
+  name: string;
+  price: Float;
+  symbol: string;
+  volume: Float;
+  constructor(data: { name: string; price_usd: string; symbol: string; volume24: number; }) {
+    this.name = data?.name || "-";
+    this.price = parseFloat(data?.price_usd) || 0;
+    this.symbol = data?.symbol || "-";
+    this.volume = data?.volume24 || 0;
+  }
+
+  getDisplayData() {
+    return [
+      { label: "Nombre", value: this.name },
+      { label: "Precio", value: `$ ${this.price.toFixed(2)}` },
+      { label: "Symbol", value: this.symbol },
+      { label: "Volumen", value: this.volume.toLocaleString() }
+    ];
+  }
+}
 
 const DetailsScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { data, fetch } = useAPIClient();
+  const navigation = useNavigation<NavigationProp<any>>();
+  const route = useRoute<RouteProp<{ DetailsScreen: { coinId?: string; type?: string; payload?: any } }, 'DetailsScreen'>>();
+  const { coinId, type, payload } = route.params || {};
+
+  const isCoin = type === "moneda";
+  const newData = useMemo(() => {
+    if (isCoin) {
+      fetch("GET", `api/ticker/?id=${coinId}`);
+      return new CoinDetails(data?.[0]);
+    }
+    return payload || {};
+  }, [data, isCoin, payload, coinId]);
+
+  const displayData = useMemo<Array<{ label: string; value: string | number }>>(() =>
+    isCoin ? newData.getDisplayData() : [
+      { label: "Título", value: newData.title || "-" },
+      { label: "Subtítulo", value: newData.subtitle || "-" },
+      { label: "Valor", value: newData.value?.toLocaleString() || "-" }
+    ], [newData, isCoin]
+  );
 
   return (
     <Wrapper>
-      <View style={{ paddingLeft: 25, paddingRight: 25, height: "100%" }}>
+      <View style={styles.container}>
         <Header
-          title="USD"
-          type={'nav'}
+          type="nav"
+          title={isCoin ? newData.name : newData.title}
+          onRightPress={() => fetch("GET", `api/ticker/?id=${coinId}`)}
           onLeftPress={() => navigation.goBack()}
         />
-
-        {/* Text */}
-        <View style={{ paddingTop: 50 }}>
-          <Text style={styles.title}>Información de la Moneda</Text>
-          <Text style={styles.subtitle}>
-            Consulta los detalles completos de la moneda seleccionada.
-          </Text>
-        </View>
-
-        {/* Info */}
         <View style={styles.sectionContainer}>
-          <View style={styles.sectionItem}>
-            <Text style={styles.label}>Network</Text>
-            <Text style={styles.value}>Ethereum</Text>
-          </View>
-
-          <View style={styles.sectionItem}>
-            <Text style={styles.label}>Network fee</Text>
-            <Text style={styles.value}>~ USD 0.01</Text>
-          </View>
-
-          <View style={styles.sectionItem}>
-            <Text style={styles.label}>Send time</Text>
-            <Text style={styles.value}>est. about 30 min</Text>
-          </View>
-
-          <View style={styles.sectionItem}>
-            <Text style={styles.label}>Total</Text>
-            <Text style={styles.totalValue}>20.00 USD (0.013 ETH)</Text>
-          </View>
+          {displayData.map(({ label, value }) => (
+            <View style={styles.sectionItem} key={label}>
+              <Text style={styles.label}>{label}</Text>
+              <Text style={styles.value}>{value}</Text>
+            </View>
+          ))}
         </View>
       </View>
     </Wrapper>
@@ -54,56 +74,28 @@ const DetailsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    borderRadius: 20,
-    marginTop: 15,
-    alignItems: "center",
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    justifyContent: "space-between",
-    backgroundColor: Colors.background,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: Colors.secondary,
-  },
-  iconContainer: {
-    padding: 5,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
-    paddingBottom: 10,
-  },
-  subtitle: {
-    color: "#aaa",
-    marginBottom: 20,
+  container: {
+    padding: 25,
+    height: "100%"
   },
   sectionContainer: {
     backgroundColor: "#1a1a1a",
     padding: 15,
     borderRadius: 12,
-    marginVertical: 25,
+    marginTop: 25
   },
   sectionItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 5,
+    marginVertical: 5
   },
   label: {
-    color: "#aaa",
+    color: "#aaa"
   },
   value: {
     color: "#fff",
-  },
-  totalValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#fff",
-  },
+    fontWeight: "bold"
+  }
 });
 
 export default DetailsScreen;

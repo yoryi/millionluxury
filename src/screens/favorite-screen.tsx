@@ -23,7 +23,7 @@ const FavoriteScreen = () => {
         <FlatList
           renderItem={() => (
             <Card
-              onPress={() => navigation.navigate({ name: 'Details', params: { coinId: 1 } })}
+              onPress={() => navigation.navigate({ name: 'Details', params: { coinId: '1', type: '' } })}
               id={""}
               title={""}
               value={""}
@@ -41,25 +41,4 @@ const FavoriteScreen = () => {
   )
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  headerContainer: {
-    gap: 5,
-    paddingTop: 20,
-  },
-  greeting2: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: Colors.textSecondary,
-  },
-  greeting: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: Colors.secondary,
-  },
-});
-
-export default FavoriteScreen;
+export default FavoriteScreen

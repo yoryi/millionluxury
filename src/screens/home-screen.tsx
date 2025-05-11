@@ -4,11 +4,10 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Wrapper, Header, Switch } from "../components";
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+
 import { formatDate } from "../utils";
-import StatsCard from "../features/statsCard";
-import WalletList from "../features/walletList";
 import { StateType } from "../components/switch";
-import FilterModal from "../features/filters";
+import { StatsCard, WalletList, Filters } from "../features";
 
 const HomeScreen = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -40,7 +39,7 @@ const HomeScreen = () => {
           containerStyle={{ paddingTop: 15 }}
         />
         <WalletList type={coinType} />
-        <FilterModal isFilterOpen={isFilterOpen} bottomSheetModalRef={bottomSheetModalRef} />
+        <Filters isFilterOpen={isFilterOpen} bottomSheetModalRef={bottomSheetModalRef} />
       </View>
     </Wrapper>
   );

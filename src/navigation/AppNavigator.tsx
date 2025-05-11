@@ -46,7 +46,7 @@ class TabNavigator extends React.Component {
             headerShown: false,
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name={Routes.Favorite}
           component={FavoriteScreen}
           options={{
@@ -55,7 +55,7 @@ class TabNavigator extends React.Component {
             ),
             headerShown: false,
           }}
-        />
+        /> */}
       </Tab.Navigator>
     );
   }
