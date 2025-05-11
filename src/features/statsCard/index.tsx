@@ -1,3 +1,7 @@
+import React from "react";
+import { GlobalCard } from "../../components";
+import { useAPIClient } from "../../hooks/useAPIClient";
+
 /**
  * StatsCard component displays a global statistics card that fetches data from an API.
  * 
@@ -11,11 +15,7 @@
  * ```
  */
 
-import React from "react";
-import { GlobalCard } from "../../components";
-import { useAPIClient } from "../../hooks/useAPIClient";
 
-// Clase para manejar las estadísticas globales
 class StatsManager {
   data: {};
   constructor(data: {}[]) {

@@ -18,16 +18,18 @@ import { transformData } from "./utils/transformData";
  * @component
  * @example
  * ```tsx
- * <WalletList type="moneda" />  // Displays wallets of type 'moneda'
- * <WalletList type="exchange" /> // Displays wallets of type 'exchange'
+ * <WalletList type="moneda" searchQuery="Bitcoin" />  // Displays wallets of type 'moneda' filtered by 'Bitcoin'
+ * <WalletList type="exchange" searchQuery="Binance" /> // Displays wallets of type 'exchange' filtered by 'Binance'
  * ```
  * 
  * @param {Object} props - The properties for the component.
  * @param {StateType} props.type - The type of data to fetch and display (either 'moneda' or 'exchange').
+ * @param {string} [props.searchQuery] - An optional search query to filter the wallets by name or title.
  */
 
 export type WalletListProps = {
   type: StateType;
+  searchQuery?: string;
 };
 
 class WalletListClass {
@@ -61,11 +63,11 @@ class WalletListClass {
   }
 
   handleCardPress(id: string, type: string, payload?: object) {
-    this.navigation.navigate("Details", { coinId: id, type: type, payload: payload  ?? {}});
+    this.navigation.navigate("Details", { coinId: id, type: type, payload: payload ?? {} });
   }
 }
 
-export default function WalletList({ type }: WalletListProps) {
+export default function WalletList({ type, searchQuery }: WalletListProps) {
   const [dataNew, setDataNew] = useState<any[]>([]);
   const { data, loading, error, fetch } = useAPIClient();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -90,6 +92,12 @@ export default function WalletList({ type }: WalletListProps) {
     />
   );
 
+  const filteredData = searchQuery
+    ? dataNew.filter(item =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : dataNew;
+
   return (
     <View style={{ flex: 1, paddingTop: 30 }}>
       {loading ? (
@@ -100,17 +108,17 @@ export default function WalletList({ type }: WalletListProps) {
         </View>
       ) : (
         <FlatList
-          data={dataNew}
+          data={filteredData}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 30 }}
           ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
           keyExtractor={(item, index) => item.id ? `index-${item.id}` : `index-${index}`}
-          ListEmptyComponent={() =>
+          ListEmptyComponent={() => (
             <View style={{ height: '100%', justifyContent: "center", alignItems: "center", paddingVertical: 20 }}>
               <Text style={{ color: Colors.secondary }}>No se encontraron resultados</Text>
             </View>
-          }
+          )}
         />
       )}
     </View>

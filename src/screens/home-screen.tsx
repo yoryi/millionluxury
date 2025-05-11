@@ -39,7 +39,7 @@ const HomeScreen = () => {
           containerStyle={{ paddingTop: 15 }}
         />
         <WalletList type={coinType} />
-        <Filters isFilterOpen={isFilterOpen} bottomSheetModalRef={bottomSheetModalRef} />
+        <Filters type={coinType} isFilterOpen={isFilterOpen} bottomSheetModalRef={bottomSheetModalRef} />
       </View>
     </Wrapper>
   );
