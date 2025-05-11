@@ -60,6 +60,13 @@ const DetailsScreen = () => {
           onRightPress={() => fetch("GET", `api/ticker/?id=${coinId}`)}
           onLeftPress={() => navigation.goBack()}
         />
+        <View style={{ paddingTop: 50 }}>
+          <Text style={styles.title}>Información de la Moneda</Text>
+          <Text style={styles.subtitle}>
+            Consulta los detalles completos de la moneda seleccionada.
+          </Text>
+        </View>
+
         <View style={styles.sectionContainer}>
           {displayData.map(({ label, value }) => (
             <View style={styles.sectionItem} key={label}>
@@ -74,6 +81,16 @@ const DetailsScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
+    paddingBottom: 10,
+  },
+  subtitle: {
+    color: "#aaa",
+    marginBottom: 20,
+  },
   container: {
     padding: 25,
     height: "100%"
