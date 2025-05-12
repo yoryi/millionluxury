@@ -1,7 +1,7 @@
 export const Routes = {
-  Home: "Home",
+  Home: "Inicio",
   Tabs: "Tabs",
-  Favorite: "Favorite",
+  Favorite: "Favoritos",
   Details: "Details",
 } as const;
 

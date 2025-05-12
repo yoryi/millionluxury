@@ -20,7 +20,9 @@ interface CardProps {
   title: string;
   value: string;
   subtitle: string;
+  isLike?: boolean;
   onPress?: () => void;
+  onLike?: () => void;
 }
 
 interface CardState {
@@ -28,31 +30,19 @@ interface CardState {
 }
 
 class Card extends Component<CardProps, CardState> {
-  constructor(props: CardProps) {
-    super(props);
-    this.state = {
-      isLiked: false,
-    };
-  }
-
-  toggleLike = () => {
-    this.setState((prevState) => ({ isLiked: !prevState.isLiked }));
-  };
-
   render() {
-    const { onPress, title, value, subtitle } = this.props;
-    const { isLiked } = this.state;
+    const { onPress, title, value, subtitle, onLike, isLike } = this.props;
     return (
       <TouchableOpacity style={styles.card} onPress={onPress}>
         <View style={styles.header}>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.priceContainer}>
             <Text style={styles.price}>${value}</Text>
-            <TouchableOpacity onPress={this.toggleLike}>
+            <TouchableOpacity onPress={onLike}>
               <Ionicons
-                name={isLiked ? "heart" : "heart-outline"}
+                name={isLike ? "heart" : "heart-outline"}
                 size={24}
-                color={isLiked ? "#e74c3c" : "#757575"}
+                color={isLike ? "#e74c3c" : "#757575"}
               />
             </TouchableOpacity>
           </View>

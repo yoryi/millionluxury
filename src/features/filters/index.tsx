@@ -68,7 +68,7 @@ class Filter extends Component<FilterModalProps, FilterState> {
                     <InputRN
                         value={inputSearch}
                         iconLeft={'magnify'}
-                        placeholder={'Search'}
+                        placeholder={'Buscar'}
                         onChangeText={this.handleInputChange}
                         onClear={this.clearInput}
                         style={{ color: Colors.secondary }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Card } from "../../components";
 import { FlatList, View, Text, ActivityIndicator } from "react-native";
 import { RootStackParamList } from "../../types/navigation";
@@ -8,28 +8,22 @@ import { Colors } from "../../config";
 import { StateType } from "../../components/switch";
 import { transformData } from "./utils/transformData";
 
-/**
- * WalletList component displays a list of wallets based on the provided type and fetches data from an API.
- * 
- * This component utilizes the WalletListClass for managing the fetching and transformation of data based on 
- * the provided wallet type (either 'moneda' or 'exchange'). It displays the data in a FlatList with an option 
- * to navigate to a details screen when a card is pressed.
- * 
- * @component
- * @example
- * ```tsx
- * <WalletList type="moneda" searchQuery="Bitcoin" />  // Displays wallets of type 'moneda' filtered by 'Bitcoin'
- * <WalletList type="exchange" searchQuery="Binance" /> // Displays wallets of type 'exchange' filtered by 'Binance'
- * ```
- * 
- * @param {Object} props - The properties for the component.
- * @param {StateType} props.type - The type of data to fetch and display (either 'moneda' or 'exchange').
- * @param {string} [props.searchQuery] - An optional search query to filter the wallets by name or title.
- */
+const useFavorites = () => {
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  const toggleFavorite = useCallback((id: string) => {
+    setFavorites((prev) => 
+      prev.includes(id) ? prev.filter(fav => fav !== id) : [...prev, id]
+    );
+  }, []);
+
+  return { favorites, toggleFavorite };
+};
 
 export type WalletListProps = {
-  type: StateType;
+  type?: StateType;
   searchQuery?: string;
+  onlyFavorite?: boolean;
 };
 
 class WalletListClass {
@@ -67,12 +61,14 @@ class WalletListClass {
   }
 }
 
-export default function WalletList({ type, searchQuery }: WalletListProps) {
+export default function WalletList({ type, searchQuery, onlyFavorite }: WalletListProps) {
   const [dataNew, setDataNew] = useState<any[]>([]);
   const { data, loading, error, fetch } = useAPIClient();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { favorites, toggleFavorite } = useFavorites();
 
-  const walletList = new WalletListClass(type, fetch, transformData, setDataNew, navigation);
+  const typeMode = type ?? 'moneda'
+  const walletList = new WalletListClass(typeMode, fetch, transformData, setDataNew, navigation);
 
   useEffect(() => {
     walletList.fetchDataByType();
@@ -82,21 +78,28 @@ export default function WalletList({ type, searchQuery }: WalletListProps) {
     walletList.handleTransformedData(data || []);
   }, [data, type]);
 
+  const handleLike = (id: string) => {
+    toggleFavorite(id);
+  };
+
+  const filteredData = (dataNew || []).filter(item => {
+    const matchesSearch = searchQuery ? item.title.toLowerCase().includes(searchQuery.toLowerCase()) : true;
+    const isFavorite = onlyFavorite ? favorites.includes(item.id) : true;
+    return matchesSearch && isFavorite;
+  });
+
+
   const renderItem = ({ item }: { item: any }) => (
     <Card
       id={item.id}
       title={item.title}
       value={item.value}
       subtitle={item.subtitle}
-      onPress={() => walletList.handleCardPress(item.id, type, item)}
+      onLike={() => handleLike(item.id)}
+      isLike={favorites.includes(item.id)}
+      onPress={() => walletList.handleCardPress(item.id, typeMode, item)}
     />
   );
-
-  const filteredData = searchQuery
-    ? dataNew.filter(item =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : dataNew;
 
   return (
     <View style={{ flex: 1, paddingTop: 30 }}>

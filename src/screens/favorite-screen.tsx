@@ -1,11 +1,11 @@
 import React from "react";
-import { Colors } from "../config";
-import { View, StyleSheet, FlatList } from "react-native";
-import { Card, Header, Wrapper } from "../components";
+import { View } from "react-native";
+import { Header, Wrapper } from "../components";
 
 import { RootStackParamList } from "../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAPIClient } from "../hooks/useAPIClient";
+import { WalletList } from "../features";
 
 const FavoriteScreen = () => {
   const { data, loading, error, fetch } = useAPIClient();
@@ -20,22 +20,7 @@ const FavoriteScreen = () => {
           optinalText={'Aquí puedes ver todos tus coins favoritos'}
           onLeftPress={() => navigation.goBack()}
         />
-        <FlatList
-          renderItem={() => (
-            <Card
-              onPress={() => navigation.navigate({ name: 'Details', params: { coinId: '1', type: '' } })}
-              id={""}
-              title={""}
-              value={""}
-              subtitle={""}
-            />
-          )}
-          data={Array.from({ length: 1 })}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingTop: 30 }}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-        />
+        <WalletList onlyFavorite={true} />
       </View>
     </Wrapper>
   )
