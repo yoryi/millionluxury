@@ -61,11 +61,7 @@ class Filter extends Component<FilterModalProps, FilterState> {
             isFilterOpen && (
                 <Modal
                     snapPoints={["85%"]}
-                    bottomSheetModalRef={bottomSheetModalRef}
-                    onClose={this.closeModal}
-                    backgroundStyle={{ backgroundColor: Colors.background }}
-                    modalContainerStyle={{ backgroundColor: Colors.background }}>
-                    <InputRN
+                    headers={<InputRN
                         value={inputSearch}
                         iconLeft={'magnify'}
                         placeholder={'Buscar'}
@@ -74,7 +70,11 @@ class Filter extends Component<FilterModalProps, FilterState> {
                         style={{ color: Colors.secondary }}
                         placeholderTextColor={Colors.textSecondary}
                         containerStyle={{ backgroundColor: Colors.background50 }}
-                    />
+                    />}
+                    bottomSheetModalRef={bottomSheetModalRef}
+                    onClose={this.closeModal}
+                    backgroundStyle={{ backgroundColor: Colors.background }}
+                    modalContainerStyle={{ backgroundColor: Colors.background }}>
                     <WalletList type={type} searchQuery={inputSearch} />
                 </Modal>
             )

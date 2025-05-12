@@ -1,5 +1,5 @@
 import React, { Component, ReactNode, RefObject } from "react";
-import BottomSheet, { type BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, { type BottomSheetModal, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
 import { StyleSheet, ViewStyle } from "react-native";
 
 /**
@@ -21,12 +21,14 @@ import { StyleSheet, ViewStyle } from "react-native";
  * ```
  */
 
+
 interface ModalProps {
   bottomSheetModalRef: RefObject<BottomSheetModal | null>;
   snapPoints: string[];
   backgroundStyle?: ViewStyle;
   modalContainerStyle?: ViewStyle;
   children: ReactNode;
+  headers?: ReactNode;
   onClose?: () => void;
 }
 
@@ -42,7 +44,8 @@ class Modal extends Component<ModalProps> {
       modalContainerStyle,
       backgroundStyle,
       children,
-      onClose = () => { }
+      headers,
+      onClose = () => { },
     } = this.props;
 
     return (
@@ -54,18 +57,21 @@ class Modal extends Component<ModalProps> {
         enableDynamicSizing={false}
         backgroundStyle={backgroundStyle}
       >
-        <BottomSheetView style={[styles.modalContainer, modalContainerStyle]}>
+        <BottomSheetView style={styles.headerContainer}>{headers}</BottomSheetView>
+        <BottomSheetScrollView style={[styles.modalContainer, modalContainerStyle]}>
           {children}
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheet>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    paddingHorizontal: 20,
+  },
   modalContainer: {
     flex: 1,
-    paddingTop: 10,
     paddingBottom: 30,
     paddingHorizontal: 20,
   },
