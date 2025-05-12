@@ -1,12 +1,25 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Card } from "../../components";
-import { FlatList, View, Text, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, ActivityIndicator } from "react-native";
 import { RootStackParamList } from "../../types/navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAPIClient } from "../../hooks/useAPIClient";
 import { Colors } from "../../config";
 import { StateType } from "../../components/switch";
 import { transformData } from "./utils/transformData";
+
+/**
+ * WalletList component displays a list of wallet items that are fetched and transformed based on the specified type.
+ * 
+ * This component utilizes the WalletListClass class to handle data fetching, transformation, and navigation.
+ * The fetched data is displayed within a Card component, with support for filtering by search query.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <WalletList type="moneda" />
+ * ```
+ */
 
 export type WalletListProps = {
   type?: StateType;
@@ -88,19 +101,20 @@ export default function WalletList({ type, searchQuery }: WalletListProps) {
           <Text style={{ color: Colors.secondary }}>Error al cargar los datos</Text>
         </View>
       ) : (
-        <FlatList
-          data={filteredData}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 30 }}
-          ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-          keyExtractor={(item, index) => item.id ? `index-${item.id}` : `index-${index}`}
-          ListEmptyComponent={() => (
+        <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+          {filteredData.length === 0 ? (
             <View style={{ height: '100%', justifyContent: "center", alignItems: "center", paddingVertical: 20 }}>
               <Text style={{ color: Colors.secondary }}>No se encontraron resultados</Text>
             </View>
+          ) : (
+            filteredData.map((item, index) => (
+              <View key={`index-${item.id || index}`}>
+                {renderItem({ item })}
+                <View style={{ height: 15 }} />
+              </View>
+            ))
           )}
-        />
+        </ScrollView>
       )}
     </View>
   );
