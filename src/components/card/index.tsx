@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Colors } from '../../config';
-import { Ionicons } from '@expo/vector-icons';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 /**
@@ -20,9 +19,7 @@ interface CardProps {
   title: string;
   value: string;
   subtitle: string;
-  isLike?: boolean;
   onPress?: () => void;
-  onLike?: () => void;
 }
 
 interface CardState {
@@ -31,20 +28,13 @@ interface CardState {
 
 class Card extends Component<CardProps, CardState> {
   render() {
-    const { onPress, title, value, subtitle, onLike, isLike } = this.props;
+    const { onPress, title, value, subtitle } = this.props;
     return (
       <TouchableOpacity style={styles.card} onPress={onPress}>
         <View style={styles.header}>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.priceContainer}>
             <Text style={styles.price}>${value}</Text>
-            <TouchableOpacity onPress={onLike}>
-              <Ionicons
-                name={isLike ? "heart" : "heart-outline"}
-                size={24}
-                color={isLike ? "#e74c3c" : "#757575"}
-              />
-            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.statsContainer}>

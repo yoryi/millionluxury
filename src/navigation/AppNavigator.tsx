@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Colors } from "../config";
 import { Platform } from "react-native";
-import { CoinsScreen, FavoriteScreen, DetailsScreen } from "../screens";
+import { CoinsScreen, DetailsScreen } from "../screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Routes } from "../types/navigation";
 
@@ -42,16 +42,6 @@ class TabNavigator extends React.Component {
                 size={size}
                 color={color}
               />
-            ),
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name={Routes.Favorite}
-          component={FavoriteScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="heart" size={size} color={color} />
             ),
             headerShown: false,
           }}

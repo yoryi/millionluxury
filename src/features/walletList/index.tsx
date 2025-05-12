@@ -61,7 +61,7 @@ class WalletListClass {
   }
 }
 
-export default function WalletList({ type, searchQuery, onlyFavorite }: WalletListProps) {
+export default function WalletList({ type, searchQuery }: WalletListProps) {
   const [dataNew, setDataNew] = useState<any[]>([]);
   const { data, loading, error, fetch } = useAPIClient();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -84,8 +84,7 @@ export default function WalletList({ type, searchQuery, onlyFavorite }: WalletLi
 
   const filteredData = (dataNew || []).filter(item => {
     const matchesSearch = searchQuery ? item.title.toLowerCase().includes(searchQuery.toLowerCase()) : true;
-    const isFavorite = onlyFavorite ? favorites.includes(item.id) : true;
-    return matchesSearch && isFavorite;
+    return matchesSearch
   });
 
 
@@ -95,8 +94,6 @@ export default function WalletList({ type, searchQuery, onlyFavorite }: WalletLi
       title={item.title}
       value={item.value}
       subtitle={item.subtitle}
-      onLike={() => handleLike(item.id)}
-      isLike={favorites.includes(item.id)}
       onPress={() => walletList.handleCardPress(item.id, typeMode, item)}
     />
   );
