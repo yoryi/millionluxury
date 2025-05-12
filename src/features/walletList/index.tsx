@@ -8,18 +8,6 @@ import { Colors } from "../../config";
 import { StateType } from "../../components/switch";
 import { transformData } from "./utils/transformData";
 
-const useFavorites = () => {
-  const [favorites, setFavorites] = useState<string[]>([]);
-
-  const toggleFavorite = useCallback((id: string) => {
-    setFavorites((prev) => 
-      prev.includes(id) ? prev.filter(fav => fav !== id) : [...prev, id]
-    );
-  }, []);
-
-  return { favorites, toggleFavorite };
-};
-
 export type WalletListProps = {
   type?: StateType;
   searchQuery?: string;
@@ -65,7 +53,6 @@ export default function WalletList({ type, searchQuery }: WalletListProps) {
   const [dataNew, setDataNew] = useState<any[]>([]);
   const { data, loading, error, fetch } = useAPIClient();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { favorites, toggleFavorite } = useFavorites();
 
   const typeMode = type ?? 'moneda'
   const walletList = new WalletListClass(typeMode, fetch, transformData, setDataNew, navigation);
@@ -78,15 +65,9 @@ export default function WalletList({ type, searchQuery }: WalletListProps) {
     walletList.handleTransformedData(data || []);
   }, [data, type]);
 
-  const handleLike = (id: string) => {
-    toggleFavorite(id);
-  };
-
-  const filteredData = (dataNew || []).filter(item => {
-    const matchesSearch = searchQuery ? item.title.toLowerCase().includes(searchQuery.toLowerCase()) : true;
-    return matchesSearch
-  });
-
+  const filteredData = (dataNew ?? []).filter(item =>
+    searchQuery?.trim() ? item.title?.toLowerCase().includes(searchQuery.trim().toLowerCase()) : true
+  );
 
   const renderItem = ({ item }: { item: any }) => (
     <Card
