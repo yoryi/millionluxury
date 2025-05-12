@@ -42,3 +42,5 @@ Millionluxury is a mobile app developed with Expo that allows you to view and fi
 
 * Make sure you have a `.env` file configured (if necessary).
 * Verify that you have access to the CoinLore API to retrieve real-time data.
+
+<img src="https://i.ibb.co/RkyYy8Mv/Group-1000001238.png" alt="App" width="500" />
